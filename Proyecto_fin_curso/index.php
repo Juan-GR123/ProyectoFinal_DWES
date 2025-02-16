@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
             </div>
         </header>
 
-        <nav>
+        <nav id="menu"> 
             <ul>
                 <li>
                     <a href="#">Inicio</a>
@@ -36,19 +36,22 @@
                 <li>
                     <a href="#">Categoria 4</a>
                 </li>
+                <li>
+                    <a href="#">Categoria 5</a>
+                </li>
             </ul>
-        </nav>
+        </nav><br>
 
         <div id="contenido">
             <!--Barra Lateral-->
             <aside id="lateral">
                 <div id="login" class="block_aside">
                     <form action="#" method="post">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" />
+                    <label for="email">Email</label>
+                        <input type="email" name="email">
                         <label for="password">Password</label>
-                        <input type="password" name="password" />
-                        <input type="submit" value="Enviar" />
+                        <input type="password" name="password">
+                        <input type="submit" value="Enviar">
                     </form>
 
                     <a href="#">Mis pedidos</a>
