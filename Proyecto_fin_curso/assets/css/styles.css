@@ -1,30 +1,30 @@
 /*Generales*/
 
-*{
+* {
     padding: 0px;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
+body {
     background-color: lightgray;
 }
 
-a{
+a {
     color: darkblue;
 }
 
-a:visited{
+a:visited {
     color: purple;
 }
 
-a:hover{
+a:hover {
     color: red;
 }
 
 
 /*Container*/
-#contenedor{
+#contenedor {
     width: 80%;
     margin: 0px auto;
     /*box-sizing: 0px 0px 10px gray;*/
@@ -33,23 +33,23 @@ a:hover{
 
 /*Header*/
 
-#header{
+#header {
     height: 145px;
     background: rgb(231, 228, 228);
 }
 
-#logo{
+#logo {
     padding: 20px;
     margin-left: 20px;
     float: left;
 }
 
-#logo img{
+#logo img {
     float: left;
     height: 150px;
 }
 
-#logo a{
+#logo a {
     float: left;
     font-size: 30px;
     letter-spacing: 4px;
@@ -64,26 +64,26 @@ a:hover{
     transition: all 300ms;
 }
 
-#logo a:hover{
+#logo a:hover {
     text-shadow: 0px 2px 1px black, 0px 0px 4px darkblue;
 }
 
 
 /*MENU*/
-#menu{
-    clear: both; 
+#menu {
+    clear: both;
     background: black;
     color: white;
     height: 55px;
     border-bottom: 4px solid darkblue;
 }
 
-#menu a{
+#menu a {
     color: white;
     text-decoration: none;
 }
 
-#menu ul{
+#menu ul {
     list-style: none;
     text-decoration: none;
     margin: 0px auto;
@@ -91,13 +91,13 @@ a:hover{
 }
 
 
-#menu ul li{
+#menu ul li {
     line-height: 55px;
     float: left;
-    border-right:1px solid #363636;
+    border-right: 1px solid #363636;
 }
 
-#menu a{
+#menu a {
     display: flex;
     color: white;
     text-decoration: none;
@@ -106,20 +106,20 @@ a:hover{
     transition: all 300ms;
 }
 
-#menu a:hover{
+#menu a:hover {
     background-color: darkblue;
 }
 
 /*contenido*/
-#contenido{
+#contenido {
     margin: 0px auto;
     overflow: hidden;
     background: white;
 }
 
 /*Barra Lateral*/
-#lateral{
-    min-height:500px;
+#lateral {
+    min-height: 500px;
     width: 22%;
     float: left;
     margin-top: 20px;
@@ -127,13 +127,13 @@ a:hover{
     /*border: 1px solid black;*/
 }
 
-#lateral .block{
+#lateral .block {
     display: block;
     width: 90%;
     /*border: 5px solid red;*/
 }
 
-#lateral h3{
+#lateral h3 {
     display: block;
     color: black;
     width: 100%;
@@ -144,15 +144,15 @@ a:hover{
     font-size: 16px;
     font-weight: bold;
     background: #E1E1E1;
-    border-bottom:2px solid darkblue;
+    border-bottom: 2px solid darkblue;
 }
 
-#lateral ul{
+#lateral ul {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#lateral ul li{
+#lateral ul li {
     list-style: square;
     margin-left: 20px;
     margin-top: 5px;
@@ -160,10 +160,11 @@ a:hover{
 }
 
 /*Formulario*/
-label, input[type="text"],
+label,
+input[type="text"],
 input[type="password"],
 input[type="email"],
-select{
+select {
     display: block;
     width: 95%;
     margin-top: 2px;
@@ -173,7 +174,7 @@ select{
 input[type="text"],
 input[type="password"],
 input[type="email"],
-select{
+select {
     border: 1px solid #C9C9C9;
     box-shadow: 0px 0px 2px #ccc inset;
     background: 2px;
@@ -181,9 +182,10 @@ select{
     transition: all 300ms;
 }
 
-input[type="text"]:focus, /*focus es para que resalte algo como el estilo*/
+input[type="text"]:focus,
+/*focus es para que resalte algo como el estilo*/
 input[type="password"]:focus,
-input[type="email"]:focus{
+input[type="email"]:focus {
     border: 1px solid #1579b5;
     color: black;
 }
@@ -191,7 +193,8 @@ input[type="email"]:focus{
 
 input[type="button"],
 input[type="submit"],
-button, .button{
+button,
+.button {
     display: block;
     border-radius: 2px;
     width: auto;
@@ -202,22 +205,22 @@ button, .button{
     cursor: pointer;
 }
 
-.button{
+.button {
     background-color: #33AE3D;
     color: white !important;
     text-decoration: none;
 }
 
-label, 
+label,
 input[type="button"],
 input[type="submit"],
-button{
+button {
     display: block;
     margin-top: 10px;
 }
 
 /*Central*/
-#central{
+#central {
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -228,7 +231,7 @@ button{
     padding: 25px;
 }
 
-#central h1{
+#central h1 {
     font-size: 24px;
     font-weight: normal;
     letter-spacing: 1px;
@@ -237,17 +240,17 @@ button{
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-    padding-top:0px;
+    padding-top: 0px;
 }
 
 /*Productos*/
-.productos{
+.productos {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.producto{
+.producto {
     width: 25%;
     /*float:left;*/
     margin-left: 10px;
@@ -255,39 +258,40 @@ button{
     text-align: center;
 }
 
-.producto img{
-    width:100px;
+.producto img {
+    width: 100px;
     margin-bottom: 10px;
 }
 
-.producto h2{
+.producto h2 {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-.producto p{
+.producto p {
     font-weight: bold;
     color: #555;
     margin-bottom: 10px;
 }
 
 
-@media (min-width: 700px) and (max-width: 905px){
-    #central{
+@media (min-width: 700px) and (max-width: 905px) {
+    #central {
         width: 60%;
     }
 }
 
-@media (min-width: 100px) and (max-width: 699px){
-    #contenido{
+@media (min-width: 100px) and (max-width: 699px) {
+    #contenido {
         display: flex;
         flex-direction: column;
         width: 80%;
         justify-content: center;
         margin: 10px;
     }
-    #lateral{
-        min-height:300px;
+
+    #lateral {
+        min-height: 300px;
         width: 100%;
         float: none;
         margin-top: 0px;
@@ -295,20 +299,21 @@ button{
         display: flex;
         justify-content: center;
         /*border: 1px solid black;*/
-    } 
+    }
 
-    #central{
+    #central {
         width: 100%;
     }
-    .productos{
+
+    .productos {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
     }
 
-    .producto{
+    .producto {
         width: 80%;
     }
-    
+
 }
