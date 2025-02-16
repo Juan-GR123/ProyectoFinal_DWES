@@ -19,7 +19,7 @@
             </div>
         </header>
 
-        <nav id="menu"> 
+        <nav id="menu">
             <ul>
                 <li>
                     <a href="#">Inicio</a>
@@ -36,53 +36,58 @@
                 <li>
                     <a href="#">Categoria 4</a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#">Categoria 5</a>
-                </li>
+                </li>-->
             </ul>
         </nav><br>
 
         <div id="contenido">
             <!--Barra Lateral-->
             <aside id="lateral">
-                <div id="login" class="block_aside">
+                <div id="login" class="block">
+                    <h3>Entrar a la Web</h3>
                     <form action="#" method="post">
-                    <label for="email">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" name="email">
                         <label for="password">Password</label>
                         <input type="password" name="password">
                         <input type="submit" value="Enviar">
                     </form>
 
-                    <a href="#">Mis pedidos</a>
-                    <a href="#">Gestionar pedidos</a>
-                    <a href="#">Gestionar categorias</a>
-
+                    <ul>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Gestionar pedidos</a></li>
+                        <li><a href="#">Gestionar categorias</a></li>
+                    </ul>
                 </div>
 
             </aside>
             <!--Contenido Central-->
             <div id="central">
+                <h1>Productos destacados</h1>
+                <div class="productos">
+                    <div class="producto">
+                        <img src="assets/img/icono-libro-256px.png" alt="">
+                        <h2>Libros con portada antigua</h2>
+                        <p>20 euros</p>
+                        <a href="" class="button">Comprar</a>
+                    </div>
 
-                <div class="producto">
-                    <img src="assets/img/icono-libro-256px.png" alt="">
-                    <h2>Libros con portada antigua</h2>
-                    <p>20 euros</p>
-                    <a href="">Comprar</a>
-                </div>
+                    <div class="producto">
+                        <img src="assets/img/icono-libro-256px.png" alt="">
+                        <h2>Libros con portada antigua</h2>
+                        <p>20 euros</p>
+                        <a href="" class="button">Comprar</a>
+                    </div>
 
-                <div class="producto">
-                    <img src="assets/img/icono-libro-256px.png" alt="">
-                    <h2>Libros con portada antigua</h2>
-                    <p>20 euros</p>
-                    <a href="">Comprar</a>
-                </div>
+                    <div class="producto">
+                        <img src="assets/img/icono-libro-256px.png" alt="">
+                        <h2>Libros con portada antigua</h2>
+                        <p>20 euros</p>
+                        <a href="" class="button">Comprar</a>
+                    </div>
 
-                <div class="producto">
-                    <img src="assets/img/icono-libro-256px.png" alt="">
-                    <h2>Libros con portada antigua</h2>
-                    <p>20 euros</p>
-                    <a href="">Comprar</a>
                 </div>
 
             </div>
