@@ -1,3 +1,34 @@
+<?php 
+require 'autoload.php';
+
+if(isset($_GET['controller'])){
+    $nombre_controlador = $_GET['controller'].'Controller';
+}else{
+    echo "La pagina que buscas no existe";
+    exit(); 
+}
+
+if(class_exists($nombre_controlador)){
+    $controlador= new $nombre_controlador();
+
+
+    if(isset($_GET['action']) && method_exists($controlador, $_GET['action'])){
+        $action = $_GET['action'];
+        $controlador->$action();
+    }else{
+        echo "La página que buscas no existe";
+    }
+
+}else{
+    echo "La página que buscas no existe";
+}
+
+
+?>
+
+
+
+<!--
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,12 +70,12 @@
                 <!--<li>
                     <a href="#">Categoria 5</a>
                 </li>-->
-            </ul>
+       <!--     </ul>
         </nav><br>
 
         <div id="contenido">
             <!--Barra Lateral-->
-            <aside id="lateral">
+           <!-- <aside id="lateral">
                 <div id="login" class="block">
                     <h3>Entrar a la Web</h3>
                     <form action="#" method="post">
@@ -64,7 +95,7 @@
 
             </aside>
             <!--Contenido Central-->
-            <div id="central">
+       <!--     <div id="central">
                 <h1>Productos destacados</h1>
                 <div class="productos">
                     <div class="producto">
@@ -94,10 +125,10 @@
         </div>
 
         <!--Pie de página-->
-        <footer id="footer">
+     <!--   <footer id="footer">
             <p>Desarrollado por Juan G WEB</p>
         </footer>
     </div>
 </body>
 
-</html>
+</html>-->
