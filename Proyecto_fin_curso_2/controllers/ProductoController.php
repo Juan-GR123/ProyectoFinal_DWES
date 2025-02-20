@@ -4,6 +4,6 @@ class productoController
 {
     public function index()
     {
-        echo "Controlador Productos, Acción index"; 
+        require_once 'views/producto/destacados.php'; 
     }
 }
