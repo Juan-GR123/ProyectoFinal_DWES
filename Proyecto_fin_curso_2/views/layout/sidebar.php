@@ -1,35 +1,25 @@
-<!--Barra Lateral-->
-<aside id="lateral">
-    <div id="login" class="block">
-        <h3>Entrar a la Web</h3>
-        <?php if(!isset($_SESSION['identidad'])): ?>
-        <form action="<?=base_url?>usuario/login" method="post">
-            <label for="email">Email</label>
-            <input type="email" name="email">
-            <label for="password">Password</label>
-            <input type="password" name="password">
-            <input type="submit" value="Enviar">
-        </form>
-        <?php else: ?>
-            <h3><?=$_SESSION['identidad']->nombre?> <?=$_SESSION['identidad']->apellidos?></h3>
-        <?php endif; ?>
+     <section id="lateral">
+         <ul>
 
-        <ul>
-            <?php if(isset($_SESSION['admin'])): ?>
-                <li><a href="#">Gestionar categorias</a></li>
-                <li><a href="#">Gestionar productos</a></li>
-                <li><a href="#">Gestionar pedidos</a></li>
-            <?php endif; ?>
+             <?php if (isset(($_SESSION['identidad']))): ?>
+                 <h2 id="usu_2">Bienvenido: <?= $_SESSION['identidad']->nombre ?> <?= $_SESSION['identidad']->apellidos ?></h2>
+             <?php endif; ?>
 
-                <?php if(isset($_SESSION['identidad'])): ?>
-                    <li><a href="#">Mis pedidos</a></li>
-                    <li><a href="<?=base_url?>usuario/logout">Cerrar Sesión</a></li>
-                <?php endif; ?>
-                
-        </ul>
-    </div>
+             <?php if (isset($_SESSION['admin'])): ?>
+                 <li><a href="#">Gestionar categorias</a></li>
+                 <li><a href="#">Gestionar productos</a></li>
+                 <li><a href="#">Gestionar pedidos</a></li>
+             <?php endif; ?>
 
-</aside>
+             <?php if (isset($_SESSION['identidad'])): ?>
+                 <li><a href="#">Mis pedidos</a></li>
+                 <li><a href="<?= base_url ?>usuario/logout">Cerrar Sesión</a></li>
+             <?php endif; ?>
 
-<!--Contenido Central-->
-<div id="central">
+         </ul>
+
+
+     </section>
+
+     <!--Contenido Central-->
+     <div id="central">

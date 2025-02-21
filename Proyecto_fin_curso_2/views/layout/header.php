@@ -40,6 +40,15 @@
                     <a href="#">Categoria 5</a>
                 </li>-->
             </ul>
-        </nav><br>
+            <ul>
+                <li>
+                <a href="<?=base_url?>usuario/sesion"> Iniciar sesion</a>
+                </li>
+
+                <li>
+                <a href="<?=base_url?>usuario/registro"> Registrarse</a>
+                </li>
+            </ul>
+        </nav>
 
         <div id="contenido">

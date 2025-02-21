@@ -1,4 +1,4 @@
-/*Generales*/ 
+/*Generales*/
 
 * {
     padding: 0px;
@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: lightgray;
+    background-color: lightblue;
 }
 
 a {
@@ -22,17 +22,17 @@ a:hover {
     color: red;
 }
 
-.verde{
+.verde {
     color: green;
 }
 
-.rojo{
+.rojo {
     color: red;
 }
 
 /*Container*/
 #contenedor {
-    width: 80%;
+    width: 100%;
     margin: 0px auto;
     /*box-sizing: 0px 0px 10px gray;*/
     background: white;
@@ -42,7 +42,7 @@ a:hover {
 
 #header {
     height: 145px;
-    background: rgb(231, 228, 228);
+    background: papayawhip;
 }
 
 #logo {
@@ -53,7 +53,7 @@ a:hover {
 
 #logo img {
     float: left;
-    height: 150px;
+    height: 100px;
 }
 
 #logo a {
@@ -62,7 +62,7 @@ a:hover {
     letter-spacing: 4px;
     font-family: 'Open Sans', Helvetica, Arial;
     text-transform: uppercase;
-    color: darkblue;
+    color: lightcoral;
     font-weight: bold;
     text-decoration: none;
     margin-top: 25px;
@@ -79,10 +79,12 @@ a:hover {
 /*MENU*/
 #menu {
     clear: both;
-    background: black;
-    color: white;
+    background: #11608E;
     height: 55px;
     border-bottom: 4px solid darkblue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #menu a {
@@ -94,7 +96,7 @@ a:hover {
     list-style: none;
     text-decoration: none;
     margin: 0px auto;
-    margin-left: 25px;
+    
 }
 
 
@@ -106,7 +108,7 @@ a:hover {
 
 #menu a {
     display: flex;
-    color: white;
+    color: wheat;
     text-decoration: none;
     padding-left: 12px;
     padding-right: 12px;
@@ -114,14 +116,27 @@ a:hover {
 }
 
 #menu a:hover {
-    background-color: darkblue;
+    background-color: aqua;
+    color: black;
 }
 
 /*contenido*/
 #contenido {
     margin: 0px auto;
-    overflow: hidden;
-    background: white;
+    background: papayawhip;
+}
+
+#registro_div{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 100px;
+}
+
+.registrar{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Barra Lateral*/
@@ -137,7 +152,6 @@ a:hover {
 #lateral .block {
     display: block;
     width: 90%;
-    /*border: 5px solid red;*/
 }
 
 #lateral h3 {
@@ -152,6 +166,17 @@ a:hover {
     font-weight: bold;
     background: #E1E1E1;
     border-bottom: 2px solid darkblue;
+}
+
+#usu{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#usu2{
+    font-size:20px ;
 }
 
 #lateral ul {
@@ -213,7 +238,7 @@ button,
 }
 
 .button {
-    background-color: #33AE3D;
+    background-color: lightcoral;
     color: white !important;
     text-decoration: none;
 }
@@ -233,9 +258,10 @@ button {
     flex-direction: column;
     flex-wrap: wrap;
     min-height: 500px;
-    border-left: 1px solid #ccc;
+     border-left: 1px solid #ccc;
     box-shadow: -5px -1px 5px #ddd;
     padding: 25px;
+    justify-content: center;
 }
 
 #central h1 {
@@ -253,15 +279,18 @@ button {
 /*Productos*/
 .productos {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    margin-inline: 200px;
 }
 
 .producto {
-    width: 25%;
+    /* width: 25%; */
     /*float:left;*/
-    margin-left: 10px;
-    margin-right: 10px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+    margin-block: 50px;
     text-align: center;
 }
 
@@ -323,4 +352,12 @@ button {
         width: 80%;
     }
 
+}
+
+#footer {
+    background-color: #11608E;
+}
+
+#footer p {
+    color: wheat;
 }

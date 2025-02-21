@@ -12,6 +12,10 @@ class usuarioController
         require_once 'views/usuario/registro.php';
     }
 
+    public function sesion(){
+        require_once 'views/usuario/sesion.php';
+    }
+
     public function save(){
         if(isset($_POST)){
             $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;

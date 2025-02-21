@@ -1,3 +1,4 @@
+<!--Contenido Central-->
 <h1>Productos destacados</h1>
 <div class="productos">
     <div class="producto">
