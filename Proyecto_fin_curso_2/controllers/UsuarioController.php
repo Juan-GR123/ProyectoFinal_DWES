@@ -3,19 +3,25 @@ require_once 'models/usuario.php';
 
 class usuarioController
 {
+    // Muestra un mensaje simple: "Controlador Usuarios, Acción index". Es una función típica para la acción predeterminada del controlador.
     public function index()
     {
         echo "Controlador Usuarios, Acción index";
     }
 
+    // Carga la vista registro.php, que contiene el formulario para el registro de usuarios.
     public function registro(){
         require_once 'views/usuario/registro.php';
     }
 
+    // Carga la vista sesion.php, donde se espera que esté el formulario de inicio de sesión.
     public function sesion(){
         require_once 'views/usuario/sesion.php';
     }
 
+    // Crea un objeto de la clase Usuario, asigna los valores y llama al método save() del modelo Usuario.
+
+    // Según el resultado, establece una variable de sesión ($_SESSION['registro']) indicando si el registro fue exitoso o fallido.
     public function save(){
         if(isset($_POST)){
             $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
@@ -45,6 +51,14 @@ class usuarioController
         header("Location:" .base_url.'usuario/registro');
     }
 
+    // Crea un objeto Usuario y llama al método login() del modelo, que verifica si las credenciales son correctas.
+    
+    // Si la autenticación es exitosa, almacena la información del usuario en la sesión ($_SESSION['identidad']).
+    
+    // Si el usuario tiene rol de administrador, activa la sesión $_SESSION['admin'].
+    
+    // Si la autenticación falla, establece $_SESSION['error_login'] y redirige a la página principal.
+   
     public  function login(){
         if(isset($_POST)){
             // Identificar al usuario
@@ -68,6 +82,10 @@ class usuarioController
         }
         header("Location:" . base_url);
     }
+
+    
+// Cierra la sesión del usuario eliminando las variables $_SESSION['identidad'] y $_SESSION['admin] si existen.
+//  Redirige a la página principal (base_url).
 
     public function logout(){
 

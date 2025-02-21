@@ -13,7 +13,7 @@
         <header id="header">
             <div id="logo">
                 <img src="<?=base_url?>assets/img/icono-libro-256px.jpg" alt="Logo libro">
-                <a href="index.php">
+                <a href="<?=base_url?>">
                     Tienda de libros
                 </a>
             </div>
@@ -22,7 +22,7 @@
         <nav id="menu">
             <ul>
                 <li>
-                    <a href="#">Inicio</a>
+                    <a href="<?=base_url?>">Inicio</a>
                 </li>
                 <li>
                     <a href="#">Categoria 1</a>

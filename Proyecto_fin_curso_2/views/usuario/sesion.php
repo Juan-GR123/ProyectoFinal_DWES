@@ -1,4 +1,5 @@
-<!--Barra Lateral-->
+<!--Este será el formularío para iniciar sesión-->
+
 <section id="centrar">
     <div id="login" class="block">
         <h3>Entrar a la Web</h3>

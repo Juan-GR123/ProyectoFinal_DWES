@@ -2,6 +2,9 @@
 
     <h1 id="reg">Registrarse</h1><br>
 
+    <!--Si la session registro esta completa entonces te lo indica 
+    y si falta alguna valor también te lo indicará-->
+
     <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 'complete'): ?>
         <strong class="verde">Registro completado correctamente</strong>
     <?php elseif (isset($_SESSION['registro']) && $_SESSION['registro'] == 'failed'): ?>
@@ -10,6 +13,7 @@
     <?php Utils::cerrarSesion('registro'); ?>
 
 
+    <!--Este sera el formualrio de registro-->
     <form action="<?= base_url ?>usuario/save" method="POST" class="registrar">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" required />

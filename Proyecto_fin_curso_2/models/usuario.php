@@ -156,6 +156,8 @@ class Usuario{
         return $this;
     }
 
+    // Inserta un nuevo usuario en la base de datos con los datos del objeto actual 
+    // y devuelve true si la inserción fue exitosa, o false si falló.
     public function save(){
         $sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user', null)";
         $save = $this->db->query($sql);
@@ -167,6 +169,9 @@ class Usuario{
         return $result;
     }
 
+
+    // Verifica si existe un usuario con el email proporcionado, compara la contraseña ingresada con la almacenada 
+    // y devuelve el objeto del usuario si la autenticación es correcta, o false si falla.
     public function login(){
         $result = false;
         $email = $this->email;
