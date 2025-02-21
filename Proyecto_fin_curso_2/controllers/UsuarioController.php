@@ -54,7 +54,7 @@ class usuarioController
             if($identidad && is_object($identidad)){
                 $_SESSION['identidad'] = $identidad;
 
-                if($identidad->role == 'admin'){
+                if($identidad->rol == 'admin'){
                     $_SESSION['admin'] = true;
                 }
             }else{
@@ -75,7 +75,7 @@ class usuarioController
             unset($_SESSION['admin']);
         }
 
-        header("Location: " .base_url);
+        header("Location: ".base_url);
     }
 
 
