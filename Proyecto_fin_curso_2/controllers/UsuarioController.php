@@ -28,15 +28,15 @@ class usuarioController
 
                 $save = $usuario->save();
                 if($save){
-                    $_SESSION['register'] = "complete";
+                    $_SESSION['registro'] = "complete";
                 }else{
-                    $_SESSION['register'] = "failed";
+                    $_SESSION['registro'] = "failed";
                 }
             }else{
-            $_SESSION['register'] = "failed";
+            $_SESSION['registro'] = "failed";
             }
         }else{
-            $_SESSION['register'] = "failed";
+            $_SESSION['registro'] = "failed";
         }    
         header("Location:" .base_url.'usuario/registro');
     }
@@ -49,12 +49,12 @@ class usuarioController
             $usuario->setEmail($_POST['email']);
             $usuario->setPassword($_POST['password']);
 
-            $identity = $usuario->login(); //devuelve un objeto declarado en usuario
+            $identidad = $usuario->login(); //devuelve un objeto declarado en usuario
 
-            if($identity && is_object($identity)){
-                $_SESSION['identity'] = $identity;
+            if($identidad && is_object($identidad)){
+                $_SESSION['identidad'] = $identidad;
 
-                if($identity->role == 'admin'){
+                if($identidad->role == 'admin'){
                     $_SESSION['admin'] = true;
                 }
             }else{
@@ -67,8 +67,8 @@ class usuarioController
 
     public function logout(){
 
-        if(isset($_SESSION['identity'])){
-            unset($_SESSION['identity']);
+        if(isset($_SESSION['identidad'])){
+            unset($_SESSION['identidad']);
         }
 
         if(isset($_SESSION['admin'])){

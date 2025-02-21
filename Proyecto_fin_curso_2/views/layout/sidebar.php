@@ -2,7 +2,7 @@
 <aside id="lateral">
     <div id="login" class="block">
         <h3>Entrar a la Web</h3>
-        <?php if(!isset($_SESSION['identity'])): ?>
+        <?php if(!isset($_SESSION['identidad'])): ?>
         <form action="<?=base_url?>usuario/login" method="post">
             <label for="email">Email</label>
             <input type="email" name="email">
@@ -11,7 +11,7 @@
             <input type="submit" value="Enviar">
         </form>
         <?php else: ?>
-            <h3><?=$_SESSION['identity']->nombre?> <?=$_SESSION['identity']->apellidos?></h3>
+            <h3><?=$_SESSION['identidad']->nombre?> <?=$_SESSION['identidad']->apellidos?></h3>
         <?php endif; ?>
 
         <ul>

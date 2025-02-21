@@ -2,7 +2,7 @@
 
     # Activar el módulo mod_rewrite
     RewriteEngine On
-    ErrorDocument 404 http://localhost/ProyectoFinal_DWES/Proyecto_fin_curso_2/error/
+    ErrorDocument 404 http://localhost/ProyectoFinal_DWES_JuanGR/Proyecto_fin_curso_2/error/
 
     # Redirigir todas las peticiones al archivo index.php
     RewriteCond %{SCRIPT_FILENAME} !-d

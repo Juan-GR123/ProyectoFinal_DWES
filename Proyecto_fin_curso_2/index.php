@@ -9,7 +9,7 @@ require_once 'views/layout/sidebar.php';
 
 
 //Conexión base de datos
-$db = Database::connect();
+$db = Database::conectar_datos();
 
 function show_error()
 {

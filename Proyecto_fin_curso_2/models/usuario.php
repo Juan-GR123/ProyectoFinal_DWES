@@ -13,7 +13,7 @@ class Usuario{
 
     public function __construct()
     {
-        $this->db = Database::connect();
+        $this->db = Database::conectar_datos();
     }
 
     /**

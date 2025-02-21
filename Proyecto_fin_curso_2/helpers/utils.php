@@ -1,13 +1,13 @@
 <?php 
 
 class Utils{
-    public static function deleteSession($name){
-        if(isset($_SESSION[$name])){
-            $_SESSION[$name] = null;
-            unset($_SESSION[$name]);
+    public static function cerrarSesion($nombre){
+        if(isset($_SESSION[$nombre])){
+            $_SESSION[$nombre] = null;
+            unset($_SESSION[$nombre]);
         }
 
-        return $name;
+        return $nombre;
     }
 }
 
