@@ -12,7 +12,7 @@
     <div id="contenedor">
         <header id="header">
             <div id="logo">
-                <img src="<?=base_url?>assets/img/icono-libro-256px.png" alt="Logo libro">
+                <img src="<?=base_url?>assets/img/icono-libro-256px.jpg" alt="Logo libro">
                 <a href="index.php">
                     Tienda de libros
                 </a>
