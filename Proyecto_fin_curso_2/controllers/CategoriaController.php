@@ -1,5 +1,8 @@
 <?php
 
+namespace Controllers;
+
+
 class categoriaController
 {
     public function index()

@@ -1,3 +1,4 @@
+
 <div id="registro_div">
 
     <h1 id="reg">Registrarse</h1><br>

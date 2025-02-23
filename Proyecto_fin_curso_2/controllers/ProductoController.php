@@ -1,5 +1,9 @@
 <?php
 
+
+namespace Controllers;
+
+
 class productoController
 {
     public function index()

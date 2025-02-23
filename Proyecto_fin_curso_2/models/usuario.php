@@ -1,6 +1,14 @@
-<?php 
+<?php
 
-class Usuario{
+namespace Models;
+
+use Lib\BaseDatos;
+
+use PDO;
+
+
+class Usuario
+{
     private $id;
     private $nombre;
     private $apellidos;
@@ -9,16 +17,17 @@ class Usuario{
     private $rol;
     private $imagen;
     private $db;
-    
+
 
     public function __construct()
     {
-        $this->db = Database::conectar_datos();
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
     }
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -28,7 +37,7 @@ class Usuario{
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -38,7 +47,7 @@ class Usuario{
 
     /**
      * Get the value of nombre
-     */ 
+     */
     public function getNombre()
     {
         return $this->nombre;
@@ -48,17 +57,17 @@ class Usuario{
      * Set the value of nombre
      *
      * @return  self
-     */ 
+     */
     public function setNombre($nombre)
     {
-        $this->nombre = $this->db->real_escape_string($nombre);
+        $this->nombre = $nombre;
 
         return $this;
     }
 
     /**
      * Get the value of apellidos
-     */ 
+     */
     public function getApellidos()
     {
         return $this->apellidos;
@@ -68,17 +77,17 @@ class Usuario{
      * Set the value of apellidos
      *
      * @return  self
-     */ 
+     */
     public function setApellidos($apellidos)
     {
-        $this->apellidos=$this->db->real_escape_string($apellidos);
+        $this->apellidos = $apellidos;
 
         return $this;
     }
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -88,27 +97,27 @@ class Usuario{
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
-        $this->email = $this->db->real_escape_string($email);
+        $this->email = $email;
 
         return $this;
     }
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
-        return password_hash($this->db->real_escape_string($this->password), PASSWORD_BCRYPT, ['cost' => 4]);
+        return $this->password;
     }
 
     /**
      * Set the value of password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -118,7 +127,7 @@ class Usuario{
 
     /**
      * Get the value of rol
-     */ 
+     */
     public function getRol()
     {
         return $this->rol;
@@ -128,7 +137,7 @@ class Usuario{
      * Set the value of rol
      *
      * @return  self
-     */ 
+     */
     public function setRol($rol)
     {
         $this->rol = $rol;
@@ -138,7 +147,7 @@ class Usuario{
 
     /**
      * Get the value of imagen
-     */ 
+     */
     public function getImagen()
     {
         return $this->imagen;
@@ -148,7 +157,7 @@ class Usuario{
      * Set the value of imagen
      *
      * @return  self
-     */ 
+     */
     public function setImagen($imagen)
     {
         $this->imagen = $imagen;
@@ -158,43 +167,59 @@ class Usuario{
 
     // Inserta un nuevo usuario en la base de datos con los datos del objeto actual 
     // y devuelve true si la inserción fue exitosa, o false si falló.
-    public function save(){
-        $sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user', null)";
-        $save = $this->db->query($sql);
+    public function save()
+    {
 
-        $result = false;
-        if($save){
-            $result = true;
-        }
-        return $result;
+        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, rol, imagen)
+            VALUES (:nombre, :apellidos, :email, :password, 'user', NULL)";
+
+        // Prepara la consulta
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        // Asigna los valores a los parámetros
+        $stmt->bindValue(':nombre', $this->nombre);
+        $stmt->bindValue(':apellidos', $this->apellidos);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':password', password_hash($this->getPassword(), PASSWORD_BCRYPT, ['cost' => 4]));
+
+        // bindValue() es más comúnmente usado cuando el valor no cambia y quieres un enlace simple y directo.
+        // bindParam() es útil cuando el valor de la variable se puede modificar antes de ejecutar la consulta, o si estás ejecutando la misma consulta varias veces con diferentes valores para el parámetro.
+
+        // Ejecuta la consulta
+        return $stmt->execute();
     }
 
 
     // Verifica si existe un usuario con el email proporcionado, compara la contraseña ingresada con la almacenada 
     // y devuelve el objeto del usuario si la autenticación es correcta, o false si falla.
-    public function login(){
+    public function login()
+    {
         $result = false;
         $email = $this->email;
         $password = $this->password;
 
+        // Consulta SQL usando prepared statements
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        $stmt = $this->db->getConnection()->prepare($sql); // Usamos getConnection() para obtener la conexión PDO
 
-        //Comprobar si existe el usuario
+        // Vinculamos el parámetro :email
+        $stmt->bindValue(':email', $email);
 
-        $sql = "SELECT * FROM usuarios WHERE email = '$email'";
-        $login = $this->db->query($sql);
+        // Ejecutamos la consulta
+        $stmt->execute();
 
-        if($login && $login->num_rows == 1){
-            $usuario = $login->fetch_object();
+        // Verificamos si encontramos un usuario
+        if ($stmt->rowCount() == 1) {
+            $usuario = $stmt->fetch(PDO::FETCH_OBJ);
 
-            //Verificar la contraseña
+            // Verificar la contraseña
             $verify = password_verify($password, $usuario->password);
 
-            if($verify){
-                $result = $usuario;
+            if ($verify) {
+                $result = $usuario;  // Si la autenticación es correcta, devolvemos el usuario
             }
         }
+
         return $result;
     }
-
 }
-?>

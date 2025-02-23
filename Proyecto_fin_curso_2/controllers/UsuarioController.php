@@ -1,5 +1,10 @@
 <?php
-require_once 'models/usuario.php';
+
+namespace Controllers;
+
+use Models\Usuario;
+use Utils;
+
 
 class usuarioController
 {
@@ -23,7 +28,8 @@ class usuarioController
 
     // Según el resultado, establece una variable de sesión ($_SESSION['registro']) indicando si el registro fue exitoso o fallido.
     public function save(){
-        if(isset($_POST)){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
             $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
             $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
             $email = isset($_POST['email']) ? $_POST['email'] : false;

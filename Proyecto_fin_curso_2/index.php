@@ -1,15 +1,22 @@
 <?php
+
+use Lib\BaseDatos;
+
 session_start();
 require_once 'autoload.php';
-require_once 'config/db.php';
-require_once 'config/parameters.php';
+require_once 'config.php';
 require_once 'helpers/utils.php';
+
 require_once 'views/layout/header.php';
 require_once 'views/layout/sidebar.php';
 
+use Controllers\errorController;
 
-//Conexión base de datos
-$db = Database::conectar_datos();
+// //Conexión base de datos
+// $db = new BaseDatos();
+
+// $db->conectar_datos();
+
 
 // Muestra la página de error llamando al controlador errorController y su método index().
 function show_error()
@@ -18,14 +25,17 @@ function show_error()
     $error->index();
 }
 
+
+
 // Verifica si se ha enviado un controlador por la URL y lo asigna a $nombre_controlador.
 // Si no se especifica controlador ni acción, carga el controlador por defecto.
 if (isset($_GET['controller'])) {
 
-    $nombre_controlador = $_GET['controller'] . 'Controller';
+    $nombre_controlador = 'Controllers\\' . $_GET['controller'] . 'Controller';
+    
 } else if (!isset($_GET['controller']) && !isset($_GET['action'])) {
 
-    $nombre_controlador = controller_default;
+    $nombre_controlador ='Controllers\\' . controller_default;
 } else {
     show_error();
     exit();
@@ -42,8 +52,8 @@ if (class_exists($nombre_controlador)) {
         $action = $_GET['action'];
         $controlador->$action();
     } else if (!isset($_GET['controller']) && !isset($_GET['action'])) {
-        $action_defuault = action_default;
-        $controlador->$action_defuault();
+        $action_default = action_default;
+        $controlador->$action_default();
     } else {
         show_error();
     }

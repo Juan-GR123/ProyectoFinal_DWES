@@ -1,4 +1,7 @@
 <?php
+
+namespace Controllers;
+
 class errorController
 {
     public function index()

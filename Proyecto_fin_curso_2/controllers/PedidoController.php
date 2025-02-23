@@ -1,5 +1,8 @@
 <?php
 
+
+namespace Controllers;
+
 class pedidoController
 {
     public function index()
