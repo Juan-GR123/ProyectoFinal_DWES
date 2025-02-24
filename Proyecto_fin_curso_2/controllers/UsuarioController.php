@@ -140,7 +140,7 @@ class usuarioController
             $usuario->setId($id); // Establecemos el ID del usuario que queremos editar
             $usuarioDatos = $usuario->get_id_editar(); // Llamamos a getOne para obtener los datos de ese usuario
 
-            require_once 'views/usuario/modificar.php'; //aqui llama al formulario de modificar.php en donde
+            require_once 'views/usuario/modificar.php'; //Aqui llama al formulario de modificar.php en donde
             //se llama a $usuarioDatos
         } else {
             header("Location:" . base_url . 'usuario/listado');
