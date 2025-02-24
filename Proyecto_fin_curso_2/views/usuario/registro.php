@@ -1,3 +1,6 @@
+<?php 
+use Helpers\Utils;
+?>
 
 <div id="registro_div">
 

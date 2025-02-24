@@ -4,15 +4,15 @@ namespace Models;
 use Lib\BaseDatos;
 use PDO;
 
-class Categoria extends BaseDatos{
+class Categoria{
     private $id;
     private $nombre;
-    
+    private $db;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->conectar_datos();
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
     }
 
 
@@ -64,7 +64,7 @@ class Categoria extends BaseDatos{
     public function getCategorias()
     {
         $sql = "SELECT * FROM categorias";
-        $stmt = $this->getConnection()->query($sql);
+        $stmt = $this->db->getConnection()->prepare($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

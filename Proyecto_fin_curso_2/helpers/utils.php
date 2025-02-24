@@ -1,5 +1,7 @@
 <?php 
 
+namespace Helpers;
+
 class Utils{
     // La función cerrarSesion($nombre) elimina la variable de sesión con 
     // el nombre especificado si existe y devuelve dicho nombre.
