@@ -2,12 +2,23 @@
 
 namespace Controllers;
 
-require_once 'models/categoria.php';
+use Models\Categoria;
 
 class categoriaController
 {
     public function index()
     {
-       require_once 'views/categoria/index.php';
+        $categoria = new Categoria();
+        $categorias = $categoria->getCategorias();
+
+        require_once 'views/categoria/index.php';
+    }
+
+    public function crear(){
+        require_once 'views/categoria/crear.php';
+    }
+
+    public function save(){
+        
     }
 }

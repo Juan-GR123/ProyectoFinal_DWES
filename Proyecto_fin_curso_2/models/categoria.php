@@ -65,7 +65,8 @@ class Categoria{
     {
         $sql = "SELECT * FROM categorias";
         $stmt = $this->db->getConnection()->prepare($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        return $stmt; // Devolver el objeto PDOStatement
     }
 }
 
