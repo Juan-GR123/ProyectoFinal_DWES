@@ -14,6 +14,14 @@ class Utils{
 
         return $nombre;
     }
+
+    public static function Admin_Correc(){
+        if(!isset($_SESSION['admin'])){
+            header("Location: " . base_url);
+        }else{
+            return true;
+        }
+    }
 }
 
 ?>

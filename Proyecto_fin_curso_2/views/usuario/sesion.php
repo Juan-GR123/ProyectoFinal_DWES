@@ -5,9 +5,9 @@
         <h3>Entrar a la Web</h3>
         <?php if(!isset($_SESSION['identidad'])): ?>
         <form action="<?=base_url?>usuario/login" method="post">
-            <label for="email">Email</label>
+            <label for="email">Email: </label>
             <input type="email" name="email">
-            <label for="password">Password</label>
+            <label for="password">Contraseña: </label>
             <input type="password" name="password">
             <input type="submit" value="Enviar">
         </form>
