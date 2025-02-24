@@ -14,6 +14,7 @@
         <?php endif; ?>
 
         <?php if (isset($_SESSION['identidad'])): ?>
+            <li><a href="<?= base_url ?>usuario/listado">Gestionar usuarios</a></li>
             <li><a href="#">Mis pedidos</a></li>
             <li><a href="<?= base_url ?>usuario/logout">Cerrar Sesión</a></li>
         <?php else: ?>

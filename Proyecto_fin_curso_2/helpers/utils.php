@@ -1,36 +1,46 @@
-<?php 
+<?php
 
 namespace Helpers;
 
 use Models\Categoria;
 
-class Utils{
+class Utils
+{
     // La función cerrarSesion($nombre) elimina la variable de sesión con 
     // el nombre especificado si existe y devuelve dicho nombre.
 
-    public static function cerrarSesion($nombre){
-        if(isset($_SESSION[$nombre])){
-             $_SESSION[$nombre] = null;
+    public static function cerrarSesion($nombre)
+    {
+        if (isset($_SESSION[$nombre])) {
+            $_SESSION[$nombre] = null;
             unset($_SESSION[$nombre]);
         }
 
         return $nombre;
     }
 
-    public static function isAdmin(){
-        if(!isset($_SESSION['admin'])){
+    public static function isAdmin()
+    {
+        if (!isset($_SESSION['admin'])) {
             header("Location: " . base_url);
-        }else{
+        } else {
             return true;
         }
     }
 
-    public static function mostrar_categorias(){
+    public static function mostrar_categorias()
+    {
         // require_once 'models/categoria.php';
         $categoria = new Categoria();
         $categorias = $categoria->getCategorias();
         return $categorias;
     }
-}
 
-?>
+    public static function Sesion_iniciada()
+    {
+        if (!isset($_SESSION['identidad'])) {
+            header("Location:" . base_url . 'usuario/sesion');
+            exit();
+        }
+    }
+}

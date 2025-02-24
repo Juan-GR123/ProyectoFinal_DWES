@@ -87,8 +87,14 @@ class Categoria
 
         // bindValue() es más comúnmente usado cuando el valor no cambia y quieres un enlace simple y directo.
         // bindParam() es útil cuando el valor de la variable se puede modificar antes de ejecutar la consulta, o si estás ejecutando la misma consulta varias veces con diferentes valores para el parámetro.
-
+        
         // Ejecuta la consulta
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+        //si existe la consulta se asegura de que su el id sea el que va por orden
+        if ($resultado) {
+            $this->id = $this->db->getConnection()->lastInsertId();
+        }
+
+        return $resultado;
     }
 }

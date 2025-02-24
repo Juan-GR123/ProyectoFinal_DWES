@@ -31,6 +31,9 @@ use Helpers\Utils;
         <label for="password">Contraseña</label>
         <input type="password" name="password" required />
 
+        <label for="rol">Rol</label>
+        <input type="text" name="rol" required pattern="^(user|admin)$" />
+
         <input type="submit" value="Registrarse" />
     </form>
 </div>

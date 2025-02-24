@@ -171,7 +171,7 @@ class Usuario
     {
 
         $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, rol, imagen)
-            VALUES (:nombre, :apellidos, :email, :password, 'user', NULL)";
+            VALUES (:nombre, :apellidos, :email, :password, :rol, NULL)";
 
         // Prepara la consulta
         $stmt = $this->db->getConnection()->prepare($sql);
@@ -181,12 +181,19 @@ class Usuario
         $stmt->bindValue(':apellidos', $this->apellidos);
         $stmt->bindValue(':email', $this->email);
         $stmt->bindValue(':password', password_hash($this->getPassword(), PASSWORD_BCRYPT, ['cost' => 4]));
+        $stmt->bindValue(':rol', $this->rol ?? 'user');
 
         // bindValue() es más comúnmente usado cuando el valor no cambia y quieres un enlace simple y directo.
         // bindParam() es útil cuando el valor de la variable se puede modificar antes de ejecutar la consulta, o si estás ejecutando la misma consulta varias veces con diferentes valores para el parámetro.
 
         // Ejecuta la consulta
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+        //si existe la consulta se asegura de que el id vaya por orden
+        if ($resultado) {
+            $this->id = $this->db->getConnection()->lastInsertId();
+        }
+
+        return $resultado;
     }
 
 
@@ -221,5 +228,42 @@ class Usuario
         }
 
         return $result;
+    }
+
+    public function getUsuarios()
+    {
+        $sql = "SELECT * FROM usuarios ORDER BY id ASC";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->execute();// Devuelve true o false
+    
+        return $stmt->fetchAll(PDO::FETCH_OBJ);// Devuelve un array de objetos
+    }
+
+    // El método get_id_editar() se utiliza generalmente para recuperar un único registro de la base de datos, 
+    // en este caso, un usuario específico, utilizando el ID de ese usuario
+    public function get_id_editar()
+    {
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //  Se usa el método bindValue para asegurar que el parámetro :id en la consulta se 
+        // reemplace por el ID real del usuario.
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
+    }
+
+    public function update()
+    {
+        $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, email = :email, rol = :rol WHERE id = :id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindValue(':nombre', $this->nombre);
+        $stmt->bindValue(':apellidos', $this->apellidos);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':rol', $this->rol);
+        $stmt->bindValue(':id', $this->id);
+
+        return $stmt->execute();
     }
 }
