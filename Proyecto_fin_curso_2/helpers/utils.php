@@ -2,6 +2,8 @@
 
 namespace Helpers;
 
+use Models\Categoria;
+
 class Utils{
     // La función cerrarSesion($nombre) elimina la variable de sesión con 
     // el nombre especificado si existe y devuelve dicho nombre.
@@ -15,12 +17,19 @@ class Utils{
         return $nombre;
     }
 
-    public static function Admin_Correc(){
+    public static function isAdmin(){
         if(!isset($_SESSION['admin'])){
             header("Location: " . base_url);
         }else{
             return true;
         }
+    }
+
+    public static function mostrar_categorias(){
+        // require_once 'models/categoria.php';
+        $categoria = new Categoria();
+        $categorias = $categoria->getCategorias();
+        return $categorias;
     }
 }
 

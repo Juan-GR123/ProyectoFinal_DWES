@@ -46,14 +46,16 @@ td{
 #contenedor {
     width: 100%;
     margin: 0px auto;
-    /*box-sizing: 0px 0px 10px gray;*/
+    /* box-sizing: 0px 0px 10px gray; */
     background: white;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Header*/
 
 #header {
-    height: 145px;
+    /* height: 145px; */
     background: papayawhip;
 }
 
@@ -136,6 +138,7 @@ td{
 #contenido {
     margin: 0px auto;
     background: papayawhip;
+    width: 100%;
 }
 
 #registro_div{
@@ -187,8 +190,10 @@ td{
     margin-top: 30px;
 }
 
-#usu2{
-    font-size:20px ;
+#usu_2{
+    font-size:20px;
+    background-color: #ccc;
+    border-bottom: #2979CD;
 }
 
 #lateral ul {
@@ -331,18 +336,25 @@ button {
 
 
 @media (min-width: 700px) and (max-width: 905px) {
+    #menu{
+        height: 100%;
+    }
     #central {
         width: 60%;
     }
 }
 
 @media (min-width: 100px) and (max-width: 699px) {
+    #menu{
+        height: 100%;
+    }
+
     #contenido {
         display: flex;
-        flex-direction: column;
-        width: 80%;
+        /* flex-direction: column; */
+        /* width: 80%; */
         justify-content: center;
-        margin: 10px;
+        /* margin: 10px; */
     }
 
     #lateral {
