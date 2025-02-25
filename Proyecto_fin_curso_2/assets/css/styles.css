@@ -260,6 +260,11 @@ button,
     text-decoration: none;
 }
 
+.botones-categorias{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
 
 .button-small{
     width: 120px;

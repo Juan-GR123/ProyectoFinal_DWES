@@ -87,7 +87,7 @@ class Categoria
 
         // bindValue() es más comúnmente usado cuando el valor no cambia y quieres un enlace simple y directo.
         // bindParam() es útil cuando el valor de la variable se puede modificar antes de ejecutar la consulta, o si estás ejecutando la misma consulta varias veces con diferentes valores para el parámetro.
-        
+
         // Ejecuta la consulta
         $resultado = $stmt->execute();
         //si existe la consulta se asegura de que su el id sea el que va por orden
@@ -96,5 +96,16 @@ class Categoria
         }
 
         return $resultado;
+    }
+
+    public function delete()
+    {
+        $sql = "DELETE FROM categorias WHERE nombre = :nombre"; // Consulta SQL para eliminar por nombre
+
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindValue(':nombre', $this->getNombre()); // Asociar el nombre con el parámetro en la consulta
+
+        return $stmt->execute(); // Ejecutar la consulta
     }
 }
