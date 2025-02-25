@@ -26,10 +26,11 @@ class usuarioController
         require_once 'views/usuario/sesion.php';
     }
 
-    public function listado(){
+    public function listado()
+    {
         $usuarioModel = new Usuario();
         $usuarios = $usuarioModel->getUsuarios(); // Supongamos que este método obtiene todos los usuarios
-        
+
         require_once 'views/usuario/listado.php';
     }
 
@@ -165,13 +166,36 @@ class usuarioController
 
             $usuario = new Usuario();
             $usuario->setId($id);
+
+            $usuarioDatos = $usuario->get_id_editar(); // Obtenemos los datos actuales
+
+            $rolAntiguo = $usuarioDatos->rol;
+
             $usuario->setNombre($nombre);
             $usuario->setApellidos($apellidos);
             $usuario->setEmail($email);
             $usuario->setRol($rol);
 
+
+
             if ($usuario->update()) {
                 $_SESSION['update'] = 'complete';
+            } else {
+                $_SESSION['update'] = 'failed';
+            }
+
+            // Si la actualización es exitosa
+            if ($usuario->update()) {
+                $_SESSION['update'] = 'complete';
+
+                // Verificar si un admin se cambió a 'user' y es su propia cuenta
+                if (isset($_SESSION['admin']) && $_SESSION['identidad']->id == $id && $rolAntiguo == 'admin' && $rol == 'user') {
+                    unset($_SESSION['admin']);
+                    unset($_SESSION['identidad']);
+                    session_destroy(); // Cerrar la sesión
+                    header("Location:" . base_url . 'usuario/sesion');
+                    exit();
+                }
             } else {
                 $_SESSION['update'] = 'failed';
             }

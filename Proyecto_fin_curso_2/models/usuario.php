@@ -171,7 +171,7 @@ class Usuario
     {
 
         $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, rol, imagen)
-            VALUES (:nombre, :apellidos, :email, :password, :rol, NULL)";
+            VALUES (:nombre, :apellidos, :email, :password, 'user', NULL)";
 
         // Prepara la consulta
         $stmt = $this->db->getConnection()->prepare($sql);
@@ -181,7 +181,6 @@ class Usuario
         $stmt->bindValue(':apellidos', $this->apellidos);
         $stmt->bindValue(':email', $this->email);
         $stmt->bindValue(':password', password_hash($this->getPassword(), PASSWORD_BCRYPT, ['cost' => 4]));
-        $stmt->bindValue(':rol', $this->rol ?? 'user');
 
         // bindValue() es más comúnmente usado cuando el valor no cambia y quieres un enlace simple y directo.
         // bindParam() es útil cuando el valor de la variable se puede modificar antes de ejecutar la consulta, o si estás ejecutando la misma consulta varias veces con diferentes valores para el parámetro.
@@ -234,9 +233,9 @@ class Usuario
     {
         $sql = "SELECT * FROM usuarios ORDER BY id ASC";
         $stmt = $this->db->getConnection()->prepare($sql);
-        $stmt->execute();// Devuelve true o false
-    
-        return $stmt->fetchAll(PDO::FETCH_OBJ);// Devuelve un array de objetos
+        $stmt->execute(); // Devuelve true o false
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ); // Devuelve un array de objetos
     }
 
     // El método get_id_editar() se utiliza generalmente para recuperar un único registro de la base de datos, 

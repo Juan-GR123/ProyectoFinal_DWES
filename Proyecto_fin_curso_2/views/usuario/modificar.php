@@ -13,6 +13,9 @@
     <label for="email">Email:</label>
     <input type="email" name="email" value="<?= $usuarioDatos->email ?>" required><br>
 
+    <label for="password">Contraseña: </label>
+    <input type="password" name="password" value="<?= $usuarioDatos->password ?>" required><br>
+
     <?php if (isset($_SESSION['admin'])): ?>
         <label for="rol">Rol:</label>
         <select name="rol">

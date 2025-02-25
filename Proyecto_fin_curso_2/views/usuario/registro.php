@@ -10,9 +10,9 @@ use Helpers\Utils;
     y si falta alguna valor también te lo indicará-->
 
     <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 'complete'): ?>
-        <strong class="verde">Registro completado correctamente</strong>
+        <strong class="verde" id="mensaje">Registro completado correctamente</strong>
     <?php elseif (isset($_SESSION['registro']) && $_SESSION['registro'] == 'failed'): ?>
-        <strong class="rojo">Registro fallido, introduce bien los datos</strong>
+        <strong class="rojo" id="mensaje">Registro fallido, introduce bien los datos</strong>
     <?php endif; ?>
     <?php Utils::cerrarSesion('registro'); ?>
 
@@ -31,9 +31,20 @@ use Helpers\Utils;
         <label for="password">Contraseña</label>
         <input type="password" name="password" required />
 
-        <label for="rol">Rol</label>
-        <input type="text" name="rol" required pattern="^(user|admin)$" />
+        <!-- <label for="rol">Rol</label>
+        <input type="text" name="rol" required pattern="^(user|admin)$" /> -->
 
         <input type="submit" value="Registrarse" />
     </form>
 </div>
+
+<!-- Esto esta con javascript porque no sabia como hacerlo con php -->
+<script>
+    // Espera 5 segundos y oculta el mensaje
+    setTimeout(() => {
+        const mensaje = document.getElementById('mensaje');
+        if (mensaje) {
+            mensaje.style.display = 'none';
+        }
+    }, 5000);
+</script>
