@@ -22,6 +22,13 @@ use Helpers\Utils;
 <?php Utils::cerrarSesion('producto'); ?>
 <?php Utils::cerrarSesion('error_producto'); ?>
 
+<?php if (isset($_SESSION['delete']) && $_SESSION['delete'] == 'complete'): ?>
+    <strong class="verde" id="mensaje">Producto se ha borrado correctamente</strong>
+<?php elseif (isset($_SESSION['delete']) && $_SESSION['delete'] == 'failed'): ?>
+    <strong class="rojo" id="mensaje">Producto fallido NO se ha borrado correctamente</strong>
+<?php endif; ?>
+<?php Utils::cerrarSesion('delete'); ?>
+
 <table>
     <tr>
         <th>ID</th>
@@ -37,8 +44,9 @@ use Helpers\Utils;
             <td><?= $pro['precio']; ?></td>
             <td><?= $pro['stock']; ?></td>
             <td>
-                <a href="<?= base_url ?>/producto/editar?id=<?$pro->id?>" class="enlaces-gestion">Editar</a>
-                <a href="<?= base_url ?>/producto/eliminar?id=<?$pro->id?>" class="enlaces-gestion">Eliminar</a>
+                <a href="<?= base_url ?>/producto/editar&id=<?=$pro['id']?>" class="enlaces-gestion">Editar</a>
+                <a href="<?= base_url ?>/producto/eliminar&id=<?=$pro['id']?>" class="enlaces-gestion">Eliminar</a>
+            <!-- El &id es para que coja la id del producto que queramos editar o eliminar -->
             </td>
         </tr>
     <?php endforeach; ?>

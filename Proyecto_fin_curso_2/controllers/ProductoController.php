@@ -95,14 +95,14 @@ class productoController
             $filename = $file['name'];
             $mimetype = $file['type'];
 
-            if($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif"){
+            if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif") {
 
-                if(!is_dir('assets/img/uploads')){
+                if (!is_dir('assets/img/uploads')) {
                     mkdir('assets/img/uploads', 0777, true); //los numeros son permisos
                 }
 
                 move_uploaded_file($file['tmp_name'], 'assets/img/uploads/' . $filename);
-                 //tmp_name == nombre temporal del archivo
+                //tmp_name == nombre temporal del archivo
                 $producto->setImagen($filename);
             }
 
@@ -122,13 +122,30 @@ class productoController
         exit();
     }
 
-    public function editar(){
+    public function editar()
+    {
         var_dump($_GET);
     }
 
-    public function eliminar(){
-        var_dump($_GET);
+    public function eliminar()
+    {
+        Utils::isAdmin();
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $producto = new Producto();
+            $producto->setId($id);
+
+            $delete = $producto->delete();
+            if ($delete) {
+                $_SESSION['delete'] = 'complete';
+            } else {
+                $_SESSION['delete'] = 'failed';
+            }
+        }else{
+            $_SESSION['delete'] = 'failed';
+        }
+
+        header('Location: ' . base_url . 'producto/gestion');
     }
-
-
 }

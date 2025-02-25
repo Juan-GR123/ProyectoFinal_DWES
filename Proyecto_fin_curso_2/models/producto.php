@@ -247,4 +247,15 @@ class Producto
 
         return $resultado;
     }
+
+    public function delete(){
+        $sql = "DELETE FROM productos WHERE id= :id";
+
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindValue(':id', $this->getId()); // Asociar el nombre con el parámetro en la consulta
+
+        return $stmt->execute(); // Ejecutar la consulta
+
+    }
 }
