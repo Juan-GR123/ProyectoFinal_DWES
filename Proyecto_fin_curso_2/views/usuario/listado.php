@@ -1,5 +1,12 @@
 <h1>Listado de Usuarios</h1>
 
+<?php if (isset($_SESSION['error_update'])): ?>
+    <div class="error_update">
+        <strong class="rojo"><?= htmlspecialchars($_SESSION['error_update']) ?></strong>
+    </div>
+    <?php unset($_SESSION['error_update']); ?>
+<?php endif; ?>
+
 <?php
 if (isset($_SESSION['admin'])):
 ?>

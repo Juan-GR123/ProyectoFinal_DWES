@@ -41,13 +41,41 @@ class usuarioController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-            $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
-            $email = isset($_POST['email']) ? $_POST['email'] : false;
-            $password = isset($_POST['password']) ? $_POST['password'] : false;
-            $rol = isset($_POST['rol']) ? $_POST['rol'] : 'user';
+            $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+            $apellidos = isset($_POST['apellidos']) ? trim($_POST['apellidos']) : false;
+            $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+            $password = isset($_POST['password']) ? trim($_POST['password']) : false;
+            $rol = isset($_POST['rol']) ? trim($_POST['rol']) : 'user';
 
-            if ($nombre && $apellidos && $email && $password && $rol) {
+
+            // Validaciones
+            $errores = [];
+
+            // Validar nombre y apellidos (solo letras y espacios)
+            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $nombre)) {
+                $errores[] = "El nombre no es válido.";
+            }
+
+            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $apellidos)) {
+                $errores[] = "Los apellidos no son válidos.";
+            }
+
+            // Validar email
+            if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errores[] = "El email no es válido.";
+            }
+
+            // Validar contraseña (mínimo 6 caracteres, al menos una letra y un número)
+            if (!$password || !preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $password)) {
+                $errores[] = "La contraseña debe tener al menos 5 caracteres, una letra y un número.";
+            }
+
+            // Validar rol
+            if ($rol !== 'user' && $rol !== 'admin') {
+                $errores[] = "El rol no es válido.";
+            }
+
+            if (empty($errores)) {
                 $usuario = new Usuario();
                 $usuario->setNombre($nombre);
                 $usuario->setApellidos($apellidos);
@@ -82,11 +110,31 @@ class usuarioController
     public  function login()
     {
         if (isset($_POST)) {
+
+            // Inicializar variables
+            $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+            $password = isset($_POST['password']) ? trim($_POST['password']) : false;
+
+            // Validar email
+            if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['error_login'] = 'El email proporcionado no es válido.';
+                header("Location: " . base_url . 'usuario/sesion');
+                exit();
+            }
+
+            // Validar contraseña
+            if (!$password) {
+                $_SESSION['error_login'] = 'La contraseña no puede estar vacía.';
+                header("Location: " . base_url . 'usuario/sesion');
+                exit();
+            }
+
+
             // Identificar al usuario
             // Consulta la base de datos
             $usuario = new Usuario();
-            $usuario->setEmail($_POST['email']);
-            $usuario->setPassword($_POST['password']);
+            $usuario->setEmail($email);
+            $usuario->setPassword($password);
 
             $identidad = $usuario->login(); //devuelve un objeto declarado en usuario
 
@@ -99,6 +147,8 @@ class usuarioController
             } else {
                 $_SESSION['error_login'] = 'Identificación fallida';
             }
+        } else {
+            $_SESSION['error_login'] = 'Por favor, complete los campos correctamente.';
         }
         header("Location:" . base_url);
     }
@@ -153,11 +203,51 @@ class usuarioController
         Utils::Sesion_iniciada();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $id = $_POST['id'];
-            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-            $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
-            $email = isset($_POST['email']) ? $_POST['email'] : false;
+            $id = isset($_POST['id']) ? $_POST['id'] : false;
+            $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+            $apellidos = isset($_POST['apellidos']) ? trim($_POST['apellidos']) : false;
+            $password = isset($_POST['password']) ? trim($_POST['password']) : false;
+            $email = isset($_POST['email']) ? trim($_POST['email']) : false;
             $rol = isset($_POST['rol']) ? $_POST['rol'] : 'user';
+
+
+            // Verificar si el id es válido
+            if (!$id || !is_numeric($id)) {
+                $_SESSION['update'] = 'failed';
+                header("Location:" . base_url . 'usuario/listado');
+                exit();
+            }
+
+            // Validar nombre
+            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $nombre)) {
+                $_SESSION['update'] = 'failed';
+                $_SESSION['error_update'] = 'El nombre debe tener al menos 3 caracteres.';
+                header("Location:" . base_url . 'usuario/listado');
+                exit();
+            }
+
+            // Validar apellidos
+            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $apellidos)) {
+                $_SESSION['update'] = 'failed';
+                $_SESSION['error_update'] = 'Los apellidos deben tener al menos 3 caracteres.';
+                header("Location:" . base_url . 'usuario/listado');
+                exit();
+            }
+
+            // Validar email
+            if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['update'] = 'failed';
+                $_SESSION['error_update'] = 'El email proporcionado no es válido.';
+                header("Location:" . base_url . 'usuario/listado');
+                exit();
+            }
+
+            // Validar contraseña (mínimo 6 caracteres, al menos una letra y un número)
+            if (!$password || !preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $password)) {
+                $_SESSION['update'] = 'failed';
+                $_SESSION['error_update'] = 'La contraseña proporcionada no es válida.';
+                header("Location:" . base_url . 'usuario/listado');
+            }
 
             // Verifica que solo los admins puedan cambiar el rol
             if (!isset($_SESSION['admin'])) {
@@ -175,6 +265,11 @@ class usuarioController
             $usuario->setApellidos($apellidos);
             $usuario->setEmail($email);
             $usuario->setRol($rol);
+
+            // Si la contraseña fue proporcionada, la encriptamos
+            if ($password) {
+                $usuario->setPassword(password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]));
+            }
 
 
 

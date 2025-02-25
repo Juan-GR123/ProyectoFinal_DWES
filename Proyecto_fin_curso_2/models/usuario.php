@@ -254,12 +254,13 @@ class Usuario
 
     public function update()
     {
-        $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, email = :email, rol = :rol WHERE id = :id";
+        $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, email = :email, password = :password, rol = :rol WHERE id = :id";
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindValue(':nombre', $this->nombre);
         $stmt->bindValue(':apellidos', $this->apellidos);
         $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':password', $this->password);
         $stmt->bindValue(':rol', $this->rol);
         $stmt->bindValue(':id', $this->id);
 

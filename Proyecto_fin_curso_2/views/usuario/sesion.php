@@ -1,5 +1,13 @@
 <!--Este será el formularío para iniciar sesión-->
 
+<?php if (isset($_SESSION['error_login'])): ?>
+    <div class="error_login">
+        <strong class="rojo"><?= htmlspecialchars($_SESSION['error_login']) ?></strong>
+    </div>
+    <?php unset($_SESSION['error_login']); ?>
+<?php endif; ?>
+
+
 <section id="centrar">
     <div id="login" class="block">
         <h3>Entrar a la Web</h3>

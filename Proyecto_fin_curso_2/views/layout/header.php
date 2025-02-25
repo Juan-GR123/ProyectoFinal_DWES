@@ -37,13 +37,19 @@ use Helpers\Utils;
                 <?php endforeach; ?>
             </ul>
             <ul>
-                <li>
-                    <a href="<?= base_url ?>usuario/sesion"> Iniciar sesion</a>
-                </li>
+                <?php if (!isset(($_SESSION['identidad']))): ?>
+                    <li>
+                        <a href="<?= base_url ?>usuario/sesion"> Iniciar sesion</a>
+                    </li>
 
-                <li>
-                    <a href="<?= base_url ?>usuario/registro"> Registrarse</a>
-                </li>
+                    <li>
+                        <a href="<?= base_url ?>usuario/registro"> Registrarse</a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                    <li><a href="<?= base_url ?>usuario/logout">Cerrar Sesión</a></li>
+                    </li>
+                <?php endif; ?>
             </ul>
         </nav>
 

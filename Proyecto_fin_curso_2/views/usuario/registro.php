@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 use Helpers\Utils;
 ?>
 
@@ -15,7 +16,6 @@ use Helpers\Utils;
         <strong class="rojo" id="mensaje">Registro fallido, introduce bien los datos</strong>
     <?php endif; ?>
     <?php Utils::cerrarSesion('registro'); ?>
-
 
     <!--Este sera el formualrio de registro-->
     <form action="<?= base_url ?>usuario/save" method="POST" class="registrar">
