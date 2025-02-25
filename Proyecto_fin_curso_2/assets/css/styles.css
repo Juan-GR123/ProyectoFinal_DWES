@@ -278,6 +278,12 @@ justify-content: space-between;
     margin-bottom: 20px;
 }
 
+.enlaces-gestion{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
 label,
 input[type="button"],
 input[type="submit"],

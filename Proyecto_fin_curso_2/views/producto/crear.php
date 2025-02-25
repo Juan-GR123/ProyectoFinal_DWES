@@ -9,7 +9,7 @@ use Helpers\Utils;
 
 <div class="form-container">
 
-    <form action="<?= base_url ?>producto/save" method="POST">
+    <form action="<?= base_url ?>producto/save" method="POST" enctype="multipart/form-data">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre">
 

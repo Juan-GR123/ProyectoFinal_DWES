@@ -241,13 +241,7 @@ class usuarioController
                 header("Location:" . base_url . 'usuario/listado');
                 exit();
             }
-
-            // Validar contraseña (mínimo 6 caracteres, al menos una letra y un número)
-            if (!$password || !preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $password)) {
-                $_SESSION['update'] = 'failed';
-                $_SESSION['error_update'] = 'La contraseña proporcionada no es válida.';
-                header("Location:" . base_url . 'usuario/listado');
-            }
+           
 
             // Verifica que solo los admins puedan cambiar el rol
             if (!isset($_SESSION['admin'])) {
@@ -267,7 +261,7 @@ class usuarioController
             $usuario->setRol($rol);
 
             // Si la contraseña fue proporcionada, la encriptamos
-            if ($password) {
+            if (!empty($_POST['password']) && preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $password)) {
                 $usuario->setPassword(password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]));
             }
 

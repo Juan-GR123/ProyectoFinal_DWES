@@ -217,8 +217,8 @@ class Producto
 
     public function save()
     {
-        $sql = "INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, oferta, fecha, imagen)
-        VALUES (:categoria_id ,:nombre, :descripcion, :precio, :stock,:oferta,:fecha, :imagen)";
+        $sql = "INSERT INTO productos (categoria_id,nombre, descripcion, precio, stock, oferta, fecha, imagen)
+        VALUES (:categoria_id,:nombre, :descripcion, :precio, :stock, :oferta, CURDATE(), :imagen)";
 
         // Prepara la consulta
         $stmt = $this->db->getConnection()->prepare($sql);
@@ -229,8 +229,9 @@ class Producto
         $stmt->bindValue(':descripcion', $this->getDescripcion());
         $stmt->bindValue(':precio', $this->getPrecio());
         $stmt->bindValue(':stock', $this->getStock());
-        $stmt->bindValue(':oferta', $this->getOferta());
-        $stmt->bindValue(':fecha', $this->getFecha());
+        $stmt->bindValue(':oferta', $this->getOferta() ?? 0); // Asigna 0 si es null
+        // $stmt->bindValue(':oferta', $this->getOferta());
+        // $stmt->bindValue(':fecha', $this->getFecha());
         $stmt->bindValue(':imagen', $this->getImagen());
 
 

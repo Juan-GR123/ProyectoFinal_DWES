@@ -31,7 +31,7 @@ class productoController
     }
 
 
-    //ESTO NO ESTA ACABADO!!!
+
     public function save()
     {
         if (isset($_POST)) {
@@ -40,19 +40,19 @@ class productoController
             $precio = isset($_POST['precio']) ? trim($_POST['precio']) : false;
             $stock = isset($_POST['stock']) ? trim($_POST['stock']) : false;
             $categoria = isset($_POST['categoria']) ? trim($_POST['categoria']) : false;
-            // $imagen = isset($_POST['imagen']) ? $_POST['imagen'] : false;
+            $imagen = isset($_POST['imagen']) ? $_POST['imagen'] : false;
 
 
             if (!$nombre || !preg_match("/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]{3,100}$/", $nombre)) {
                 $_SESSION['error_producto'] = 'El nombre es inválido (mínimo 3 caracteres alfanuméricos).';
-                header("Location:" . base_url . 'producto/crear');
+                header("Location:" . base_url . 'producto/gestion');
                 exit();
             }
 
             // Validar la descripción
             if (!$descripcion || strlen($descripcion) < 10) {
                 $_SESSION['error_producto'] = 'La descripción debe tener al menos 10 caracteres.';
-                header("Location:" . base_url . 'producto/crear');
+                header("Location:" . base_url . 'producto/gestion');
                 exit();
             }
 
@@ -60,7 +60,7 @@ class productoController
 
             if (!$precio || !filter_var($precio, FILTER_VALIDATE_FLOAT) || $precio <= 0) {
                 $_SESSION['error_producto'] = 'El precio debe ser un número válido y mayor que 0.';
-                header("Location:" . base_url . 'producto/crear');
+                header("Location:" . base_url . 'producto/gestion');
                 exit();
             }
 
@@ -68,25 +68,15 @@ class productoController
             // La función filter_var($variable, FILTER_VALIDATE_INT) en PHP se utiliza para validar si una variable es un número entero válido.
             if (!$stock || !filter_var($stock, FILTER_VALIDATE_INT) || $stock < 0) {
                 $_SESSION['error_producto'] = 'El stock debe ser un número entero positivo.';
-                header("Location:" . base_url . 'producto/crear');
+                header("Location:" . base_url . 'producto/gestion');
                 exit();
             }
 
             // Validar la categoría (número entero positivo)
             if (!$categoria || !filter_var($categoria, FILTER_VALIDATE_INT)) {
                 $_SESSION['error_producto'] = 'La categoría seleccionada no es válida.';
-                header("Location:" . base_url . 'producto/crear');
+                header("Location:" . base_url . 'producto/gestion');
                 exit();
-            }
-
-            // Validar la imagen si es requerida (opcional)
-            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-                $tipoImagen = $_FILES['imagen']['type'];
-                if (!in_array($tipoImagen, ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'])) {
-                    $_SESSION['error_producto'] = 'El formato de la imagen no es válido (solo JPG, PNG o GIF).';
-                    header("Location:" . base_url . 'producto/crear');
-                    exit();
-                }
             }
 
 
@@ -96,13 +86,26 @@ class productoController
             $producto->setDescripcion($descripcion);
             $producto->setPrecio($precio);
             $producto->setStock($stock);
+            $producto->setCategoria_id($categoria);
+            // $producto->setImagen($imagen);
 
-            // Guardar la imagen si se subió
-            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-                $nombreImagen = time() . '_' . $_FILES['imagen']['name'];
-                move_uploaded_file($_FILES['imagen']['tmp_name'], 'uploads/images/' . $nombreImagen);
-                $producto->setImagen($nombreImagen);
+
+            //Guardar una imagen´
+            $file = $_FILES['imagen'];
+            $filename = $file['name'];
+            $mimetype = $file['type'];
+
+            if($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif"){
+
+                if(!is_dir('assets/img/uploads')){
+                    mkdir('assets/img/uploads', 0777, true); //los numeros son permisos
+                }
+
+                move_uploaded_file($file['tmp_name'], 'assets/img/uploads/' . $filename);
+                 //tmp_name == nombre temporal del archivo
+                $producto->setImagen($filename);
             }
+
 
             $save = $producto->save();
 
@@ -115,7 +118,17 @@ class productoController
             $_SESSION['producto'] = 'failed';
         }
 
-        header("Location:" . base_url . 'producto/crear');
+        header("Location:" . base_url . 'producto/gestion');
         exit();
     }
+
+    public function editar(){
+        var_dump($_GET);
+    }
+
+    public function eliminar(){
+        var_dump($_GET);
+    }
+
+
 }
