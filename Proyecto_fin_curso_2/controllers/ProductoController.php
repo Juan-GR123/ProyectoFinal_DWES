@@ -11,6 +11,11 @@ class productoController
 {
     public function index()
     {
+
+
+        $producto = new Producto();
+        $productos = $producto->getRandom(6);
+
         require_once 'views/producto/destacados.php';
     }
 
@@ -111,7 +116,7 @@ class productoController
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 $producto->setId($id);
-                
+
                 $save = $producto->edit();
             }else{
                 $save = $producto->save();

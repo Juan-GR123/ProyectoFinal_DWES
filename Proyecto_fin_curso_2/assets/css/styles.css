@@ -327,7 +327,7 @@ button {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 200px;
+    /* margin-inline: 200px; */
 }
 
 .producto {

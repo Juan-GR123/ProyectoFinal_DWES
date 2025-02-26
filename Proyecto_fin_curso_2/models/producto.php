@@ -225,6 +225,13 @@ class Producto
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
+    public function getRandom($limit){
+        $sql = "SELECT * FROM productos ORDER BY RAND() LIMIT $limit";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt; // Devolver el objeto PDOStatement
+    }
+
 
     public function save()
     {
