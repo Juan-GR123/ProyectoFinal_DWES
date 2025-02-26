@@ -1,16 +1,42 @@
 <?php
 
 use Lib\BaseDatos;
+use Controllers\errorController;
+use Models\Usuario;
 
 session_start();
 require_once 'autoload.php';
 require_once 'config.php';
 require_once 'helpers/utils.php';
 
+// Si no hay sesión activa (!isset($_SESSION['identidad'])), pero sí existe la cookie
+//  (isset($_COOKIE['user_login'])), intentamos restaurar la sesión.
+
+// Buscamos al usuario en la base de datos con get_id_editar() usando el ID almacenado en la cookie.
+
+// Si el usuario existe, guardamos sus datos en $_SESSION['identidad'],
+//  lo que significa que ya ha iniciado sesión.
+
+// Si el usuario es administrador, también guardamos $_SESSION['admin'] = true;.
+
+if (!isset($_SESSION['identidad']) && isset($_COOKIE['user_login'])) {
+    $usuario = new Usuario();
+    $usuario->setId($_COOKIE['user_login']);
+    $usuarioDatos = $usuario->get_id_editar(); // Obtener datos del usuario
+
+    if ($usuarioDatos) {
+        $_SESSION['identidad'] = $usuarioDatos;
+
+        if ($usuarioDatos->rol == 'admin') {
+            $_SESSION['admin'] = true;
+        }
+    }
+}
+
 require_once 'views/layout/header.php';
 require_once 'views/layout/sidebar.php';
 
-use Controllers\errorController;
+
 
 // //Conexión base de datos
 // $db = new BaseDatos();
@@ -60,5 +86,6 @@ if (class_exists($nombre_controlador)) {
 } else {
     show_error();
 }
+
 
 require_once 'views/layout/footer.php';

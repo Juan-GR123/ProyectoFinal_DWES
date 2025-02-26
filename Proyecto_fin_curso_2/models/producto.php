@@ -269,10 +269,10 @@ class Producto
                 stock = :stock,
                 oferta = :oferta";
         if ($this->getImagen() != null) {
-            $sql .= ",imagen = :imagen";
+            $sql .= ", imagen = :imagen";
         }
 
-        $sql .=  "WHERE id = :id";
+        $sql .=  " WHERE id = :id ";
 
         // Preparar la consulta
         $stmt = $this->db->getConnection()->prepare($sql);

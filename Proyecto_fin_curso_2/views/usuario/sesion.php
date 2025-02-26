@@ -8,6 +8,7 @@
 <?php endif; ?>
 
 
+
 <section id="centrar">
     <div id="login" class="block">
         <h3>Entrar a la Web</h3>
@@ -17,6 +18,8 @@
             <input type="email" name="email">
             <label for="password">Contraseña: </label>
             <input type="password" name="password">
+            <label for="remember">Recuérdame</label>
+            <input type="checkbox" name="remember">
             <input type="submit" value="Enviar">
         </form>
         <?php else: ?>

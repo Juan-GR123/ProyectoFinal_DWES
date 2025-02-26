@@ -114,6 +114,7 @@ class usuarioController
             // Inicializar variables
             $email = isset($_POST['email']) ? trim($_POST['email']) : false;
             $password = isset($_POST['password']) ? trim($_POST['password']) : false;
+            $remember = isset($_POST['remember']); // Verifica si el checkbox fue marcado
 
             // Validar email
             if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -144,6 +145,11 @@ class usuarioController
                 if ($identidad->rol == 'admin') {
                     $_SESSION['admin'] = true;
                 }
+
+                // Si el usuario marcó "Recuérdame", creamos la cookie
+                if ($remember) {
+                    setcookie("user_login", $identidad->id, time() + (7 * 24 * 60 * 60), "/"); // 7 días
+                }
             } else {
                 $_SESSION['error_login'] = 'Identificación fallida';
             }
@@ -166,6 +172,11 @@ class usuarioController
 
         if (isset($_SESSION['admin'])) {
             unset($_SESSION['admin']);
+        }
+
+        // Borrar la cookie "user_login"
+        if (isset($_COOKIE['user_login'])) {
+            setcookie("user_login", "", time() - 3600, "/"); // Expira en el pasado
         }
 
         header("Location: " . base_url);
@@ -241,7 +252,7 @@ class usuarioController
                 header("Location:" . base_url . 'usuario/listado');
                 exit();
             }
-           
+
 
             // Verifica que solo los admins puedan cambiar el rol
             if (!isset($_SESSION['admin'])) {
