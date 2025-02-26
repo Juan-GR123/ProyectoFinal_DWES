@@ -90,24 +90,33 @@ class productoController
             // $producto->setImagen($imagen);
 
 
-            //Guardar una imagen´
-            $file = $_FILES['imagen'];
-            $filename = $file['name'];
-            $mimetype = $file['type'];
+            //Guardar una imagen
+            if (isset($_FILES['imagen'])) {
+                $file = $_FILES['imagen'];
+                $filename = $file['name'];
+                $mimetype = $file['type'];
 
-            if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif") {
+                if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif") {
 
-                if (!is_dir('assets/img/uploads')) {
-                    mkdir('assets/img/uploads', 0777, true); //los numeros son permisos
+                    if (!is_dir('assets/img/uploads')) {
+                        mkdir('assets/img/uploads', 0777, true); //los numeros son permisos
+                    }
+
+                    move_uploaded_file($file['tmp_name'], 'assets/img/uploads/' . $filename);
+                    //tmp_name == nombre temporal del archivo
+                    $producto->setImagen($filename);
                 }
-
-                move_uploaded_file($file['tmp_name'], 'assets/img/uploads/' . $filename);
-                //tmp_name == nombre temporal del archivo
-                $producto->setImagen($filename);
             }
 
-
-            $save = $producto->save();
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $producto->setId($id);
+                
+                $save = $producto->edit();
+            }else{
+                $save = $producto->save();
+            }
+          
 
             if ($save) {
                 $_SESSION['producto'] = 'complete';
@@ -124,7 +133,21 @@ class productoController
 
     public function editar()
     {
-        var_dump($_GET);
+        Utils::isAdmin();
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $editar = true;
+
+            $producto = new Producto();
+            $producto->setId($id);
+
+            $pro = $producto->get_id_productos();
+
+
+            require_once 'views/producto/crear.php';
+        } else {
+            header('Location: ' . base_url . 'producto/gestion');
+        }
     }
 
     public function eliminar()
@@ -142,7 +165,7 @@ class productoController
             } else {
                 $_SESSION['delete'] = 'failed';
             }
-        }else{
+        } else {
             $_SESSION['delete'] = 'failed';
         }
 

@@ -25,7 +25,7 @@ use Helpers\Utils;
 <?php if (isset($_SESSION['delete']) && $_SESSION['delete'] == 'complete'): ?>
     <strong class="verde" id="mensaje">Producto se ha borrado correctamente</strong>
 <?php elseif (isset($_SESSION['delete']) && $_SESSION['delete'] == 'failed'): ?>
-    <strong class="rojo" id="mensaje">Producto fallido NO se ha borrado correctamente</strong>
+    <strong class="rojo" id="mensaje">Producto NO se ha borrado correctamente</strong>
 <?php endif; ?>
 <?php Utils::cerrarSesion('delete'); ?>
 

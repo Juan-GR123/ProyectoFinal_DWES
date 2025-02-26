@@ -215,6 +215,17 @@ class Producto
         return $stmt; // Devolver el objeto PDOStatement
     }
 
+    public function get_id_productos()
+    {
+        $sql = "SELECT * FROM productos WHERE id = :id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
+    }
+
+
     public function save()
     {
         $sql = "INSERT INTO productos (categoria_id,nombre, descripcion, precio, stock, oferta, fecha, imagen)
@@ -248,7 +259,42 @@ class Producto
         return $resultado;
     }
 
-    public function delete(){
+    public function edit()
+    {
+        $sql = "UPDATE productos SET 
+                categoria_id = :categoria_id,
+                nombre = :nombre,
+                descripcion = :descripcion,
+                precio = :precio,
+                stock = :stock,
+                oferta = :oferta";
+        if ($this->getImagen() != null) {
+            $sql .= ",imagen = :imagen";
+        }
+
+        $sql .=  "WHERE id = :id";
+
+        // Preparar la consulta
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        // Asignar los valores a los parámetros
+        $stmt->bindValue(':categoria_id', $this->getCategoria_id());
+        $stmt->bindValue(':nombre', $this->getNombre());
+        $stmt->bindValue(':descripcion', $this->getDescripcion());
+        $stmt->bindValue(':precio', $this->getPrecio());
+        $stmt->bindValue(':stock', $this->getStock());
+        $stmt->bindValue(':oferta', $this->getOferta() ?? 0); // Si es null, lo establece en 0
+        if ($this->getImagen() != null) {
+            $stmt->bindValue(':imagen', $this->getImagen());
+        }
+        $stmt->bindValue(':id', $this->getId()); // Condición para editar solo el producto correcto
+
+        // Ejecutar la consulta y devolver el resultado
+        return $stmt->execute();
+    }
+
+    public function delete()
+    {
         $sql = "DELETE FROM productos WHERE id= :id";
 
         $stmt = $this->db->getConnection()->prepare($sql);
