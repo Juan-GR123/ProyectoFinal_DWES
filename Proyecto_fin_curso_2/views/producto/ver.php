@@ -10,7 +10,7 @@
         <div id="detalles_producto2">
             <h2><?= $pro->descripcion ?></h2>
             <p><?= $pro->precio ?>$</p>
-            <a href="" class="button">Comprar</a>
+            <a href="<?=base_url?>carrito/add&id=<?=$pro->id?>" class="button">Comprar</a>
         </div>
     </div>
 <?php else: ?>

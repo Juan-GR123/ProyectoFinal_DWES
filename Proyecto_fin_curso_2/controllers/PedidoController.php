@@ -9,4 +9,8 @@ class pedidoController
     {
         echo "Controlador Pedidos, Acción index";
     }
+
+    public function add(){
+        
+    }
 }
