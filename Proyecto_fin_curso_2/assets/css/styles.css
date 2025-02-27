@@ -357,6 +357,36 @@ button {
     margin-bottom: 10px;
 }
 
+#detalles_producto{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#detalles_producto img{
+    width: 30%;
+    justify-content: left;
+    margin-right: 40px;
+}
+
+#detalles_producto2{
+    display: flex;
+    flex-direction: column;
+}
+
+#detalles_producto2 h2{
+    margin-bottom: 20px;
+}
+
+p{
+    margin-bottom: 20px;
+}
+
+#detalles_productos2 button{
+    width: 200px;
+}
+
 
 @media (min-width: 700px) and (max-width: 905px) {
     #menu{

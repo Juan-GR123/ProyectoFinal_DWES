@@ -217,7 +217,7 @@ class Producto
 
     public function getProductos_categoria()
     {
-        $sql = "SELECT p.*, c.nombre FROM productos AS p  INNER JOIN categorias c ON c.id = p.categoria_id WHERE p.categoria_id = {$this->getCategoria_id()}  ORDER BY id DESC";
+        $sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos AS p  INNER JOIN categorias c ON c.id = p.categoria_id WHERE p.categoria_id = {$this->getCategoria_id()}  ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt; // Devolver el objeto PDOStatement

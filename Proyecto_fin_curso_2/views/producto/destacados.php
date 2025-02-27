@@ -8,12 +8,14 @@
     <!-- fetch(PDO::FETCH_OBJ) obtiene una fila de la consulta como un objeto, en lugar de un array asociativo. -->
     <div class="productos">
         <div class="producto">
-            <?php if ($producto_mostrar->imagen != null): ?>
-                <img src="<?= base_url ?>assets/img/uploads/<?= $producto_mostrar->imagen ?>" alt="">
-            <?php else: ?>
-                <img src="<?=base_url?>assets/img/icono-libro-256px.jpg" alt="">
-            <?php endif; ?>
-            <h2><?= $producto_mostrar->nombre ?></h2>
+            <a href="<?=base_url?>producto/ver&id=<?=$producto_mostrar->id ?>">
+                <?php if ($producto_mostrar->imagen != null): ?>
+                    <img src="<?= base_url ?>assets/img/uploads/<?= $producto_mostrar->imagen ?>" alt="">
+                <?php else: ?>
+                    <img src="<?= base_url ?>assets/img/icono-libro-256px.jpg" alt="">
+                <?php endif; ?>
+                <h2><?= $producto_mostrar->nombre ?></h2>
+            </a>
             <p><?= $producto_mostrar->precio ?></p>
             <a href="" class="button">Comprar</a>
         </div>
