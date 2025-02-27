@@ -1,6 +1,21 @@
 <!--Barra Lateral-->
 
+<?php 
+use Helpers\Utils;
+?>
+
 <section id="lateral">
+
+    <div id="carrito">
+        <h3>Mi carrito</h3>
+        <ul>
+            <?php $mostrar= Utils::Carrito_mostrar(); ?>
+            <li><a href="<?= base_url ?>carrito/index">Productos (<?=$mostrar['count']?>)</a></li>
+            <li><a href="<?= base_url ?>carrito/index">Total: <?=$mostrar['total']?>$ </a></li>
+            <li><a href="<?= base_url ?>carrito/index">Ver el carrito</a></li>
+        </ul>
+    </div>
+
     <ul>
         <!-- En caso de que se haya iniciado sesion mostrará este mensaje -->
         <?php if (isset(($_SESSION['identidad']))): ?>

@@ -36,6 +36,24 @@ class Utils
         return $categorias;
     }
 
+    public static function Carrito_mostrar(){
+        $mostrar = array(
+            'count'=>0,
+            'total'=>0
+        );
+
+        if(isset($_SESSION['carrito'])){
+            $mostrar['count'] = count($_SESSION['carrito']);
+        
+            foreach($_SESSION['carrito'] as $producto){
+                $mostrar['total'] += $producto['precio']*$producto['unidades'];
+            }
+
+        }
+
+        return $mostrar;
+    } 
+
     public static function Sesion_iniciada()
     {
         if (!isset($_SESSION['identidad'])) {

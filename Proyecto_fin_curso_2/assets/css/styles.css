@@ -34,7 +34,7 @@ a:hover {
 table{
     text-align: center;
     width: 100%;
-    border: 1px solid #555;
+    border-bottom: 1px solid #ccc;
 }
 
 td{
@@ -385,6 +385,17 @@ p{
 
 #detalles_productos2 button{
     width: 200px;
+}
+
+.img_carrito{
+    height: 80px;
+    margin: 10px;
+}
+
+ #button-pedido{
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
 }
 
 
