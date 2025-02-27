@@ -1,29 +1,21 @@
 <!--Contenido Central-->
 <h1>Algunos productos destacados</h1>
 
-<?php while($producto_mostrar = $productos -> fetch(PDO::FETCH_OBJ)) : ?>
-<div class="productos">
-    <div class="producto">
-        <img src="<?=base_url?>assets/img/uploads/<?=$producto_mostrar->imagen?>" alt="">
-        <h2><?=$producto_mostrar->nombre ?></h2>
-        <p><?=$producto_mostrar->precio ?></p>
-        <a href="" class="button">Comprar</a>
+<?php while ($producto_mostrar = $productos->fetch(PDO::FETCH_OBJ)) : ?>
+    <!-- $producto_mostrar es una variable que almacena cada fila de la base de datos como
+      un objeto mientras se recorre el conjunto de resultados ($productos). -->
+
+    <!-- fetch(PDO::FETCH_OBJ) obtiene una fila de la consulta como un objeto, en lugar de un array asociativo. -->
+    <div class="productos">
+        <div class="producto">
+            <?php if ($producto_mostrar->imagen != null): ?>
+                <img src="<?= base_url ?>assets/img/uploads/<?= $producto_mostrar->imagen ?>" alt="">
+            <?php else: ?>
+                <img src="<?=base_url?>assets/img/icono-libro-256px.jpg" alt="">
+            <?php endif; ?>
+            <h2><?= $producto_mostrar->nombre ?></h2>
+            <p><?= $producto_mostrar->precio ?></p>
+            <a href="" class="button">Comprar</a>
+        </div>
+    <?php endwhile; ?>
     </div>
-<?php endwhile; ?>
-
-
-    <!-- <div class="producto">
-        <img src="assets/img/icono-libro-256px.jpg" alt="">
-        <h2>Libros con portada antigua</h2>
-        <p>20 euros</p>
-        <a href="" class="button">Comprar</a>
-    </div>
-
-    <div class="producto">
-        <img src="assets/img/icono-libro-256px.jpg" alt="">
-        <h2>Libros con portada antigua</h2>
-        <p>20 euros</p>
-        <a href="" class="button">Comprar</a>
-    </div>-->
-</div> 
-

@@ -4,9 +4,11 @@ namespace Controllers;
 
 use Helpers\Utils;
 use Models\Categoria;
+use Models\Producto;
 
 class categoriaController
 {
+    //me muestra la lista de categorias
     public function index()
     {
         Utils::isAdmin();
@@ -53,5 +55,25 @@ class categoriaController
         }
 
         header("Location:" . base_url . "categoria/index");
+    }
+
+    public function ver(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+
+            //conseguir categoria
+            $categoria = new Categoria();
+            $categoria->setid($id);
+            $categoria = $categoria->get_id_categorias();
+            // var_dump($categoria);
+        
+            //conseguir productos
+            $producto = new Producto();
+            $producto -> setCategoria_id($id);
+            $productos = $producto->getProductos_categoria();
+        }
+        
+
+        require_once 'views/categoria/ver.php';
     }
 }

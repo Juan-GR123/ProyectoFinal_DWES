@@ -68,7 +68,16 @@ class Categoria
         $sql = "SELECT * FROM categorias ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
-        return $stmt; // Devolver el objeto PDOStatement
+        return $stmt; // Devolver true o false
+    }
+
+    public function get_id_categorias()
+    {
+        $sql = "SELECT * FROM categorias WHERE id=:id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
     public function save()
