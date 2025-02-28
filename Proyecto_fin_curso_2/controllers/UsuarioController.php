@@ -274,15 +274,15 @@ class usuarioController
             // Si la contraseña fue proporcionada, la encriptamos
             if (!empty($_POST['password']) && preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $password)) {
                 $usuario->setPassword(password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]));
+            }elseif(!empty($_POST['password'])){
+                $usuario->setPassword($password);
             }
 
-
-
-            if ($usuario->update()) {
-                $_SESSION['update'] = 'complete';
-            } else {
-                $_SESSION['update'] = 'failed';
-            }
+            // if ($usuario->update()) {
+            //     $_SESSION['update'] = 'complete';
+            // } else {
+            //     $_SESSION['update'] = 'failed';
+            // }
 
             // Si la actualización es exitosa
             if ($usuario->update()) {
