@@ -44,4 +44,4 @@ use Helpers\Utils;
 ?>
 <br>
 <h3>Precio Total: <?=$mostrar['total'] ?>$</h3>
-<a href="" class="button" id="button-pedido"> Realizar pedido</a>
+<a href="<?=base_url?>pedido/hacer" class="button" id="button-pedido"> Realizar pedido</a>
