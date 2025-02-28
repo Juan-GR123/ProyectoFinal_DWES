@@ -13,8 +13,8 @@ class Categoria
 
     public function __construct()
     {
-        $this->db = new BaseDatos();
-        $this->db->conectar_datos();  // Estableces la conexión
+        // $this->db = new BaseDatos();
+        // $this->db->conectar_datos();  // Estableces la conexión
     }
 
 
@@ -65,23 +65,39 @@ class Categoria
 
     public function getCategorias()
     {
+         $this->db = new BaseDatos();
+         $this->db->conectar_datos();  // Estableces la conexión
+         
         $sql = "SELECT * FROM categorias ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
+
+        $this->db->cerrarConexion(); //se cierra la conexión para que no haya fugas
+
         return $stmt; // Devolver true o false
     }
 
     public function get_id_categorias()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM categorias WHERE id=:id";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->bindValue(':id', $this->id);
         $stmt->execute();
+
+        $this->db->cerrarConexion(); //se cierra la conexión para que no haya fugas
+
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
     public function save()
     {
+
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "INSERT INTO categorias (id,nombre)
         VALUES (NULL,:nombre)";
 
@@ -104,16 +120,24 @@ class Categoria
             $this->id = $this->db->getConnection()->lastInsertId();
         }
 
+         $this->db->cerrarConexion();
+
         return $resultado;
     }
 
     public function delete()
     {
+
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "DELETE FROM categorias WHERE nombre = :nombre"; // Consulta SQL para eliminar por nombre
 
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindValue(':nombre', $this->getNombre()); // Asociar el nombre con el parámetro en la consulta
+
+        $this->db->cerrarConexion();
 
         return $stmt->execute(); // Ejecutar la consulta
     }

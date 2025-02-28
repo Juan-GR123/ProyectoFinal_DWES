@@ -21,8 +21,8 @@ class Usuario
 
     public function __construct()
     {
-        $this->db = new BaseDatos();
-        $this->db->conectar_datos();  // Estableces la conexión
+        // $this->db = new BaseDatos();
+        // $this->db->conectar_datos();  // Estableces la conexión
     }
 
     /**
@@ -169,6 +169,8 @@ class Usuario
     // y devuelve true si la inserción fue exitosa, o false si falló.
     public function save()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
 
         $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, rol, imagen)
             VALUES (:nombre, :apellidos, :email, :password, 'user', NULL)";
@@ -191,6 +193,8 @@ class Usuario
         if ($resultado) {
             $this->id = $this->db->getConnection()->lastInsertId();
         }
+        
+        $this->db->cerrarConexion();
 
         return $resultado;
     }
@@ -200,6 +204,9 @@ class Usuario
     // y devuelve el objeto del usuario si la autenticación es correcta, o false si falla.
     public function login()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $result = false;
         $email = $this->email;
         $password = $this->password;
@@ -225,15 +232,22 @@ class Usuario
                 $result = $usuario;  // Si la autenticación es correcta, devolvemos el usuario
             }
         }
+        
+        $this->db->cerrarConexion();
 
         return $result;
     }
 
     public function getUsuarios()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM usuarios ORDER BY id ASC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute(); // Devuelve true o false
+
+        $this->db->cerrarConexion();
 
         return $stmt->fetchAll(PDO::FETCH_OBJ); // Devuelve un array de objetos
     }
@@ -242,6 +256,9 @@ class Usuario
     // en este caso, un usuario específico, utilizando el ID de ese usuario
     public function get_id_editar()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM usuarios WHERE id = :id";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
@@ -249,11 +266,16 @@ class Usuario
         // reemplace por el ID real del usuario.
         $stmt->execute();
 
+        $this->db->cerrarConexion();
+
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
     public function update()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, email = :email, password = :password, rol = :rol WHERE id = :id";
         $stmt = $this->db->getConnection()->prepare($sql);
 
@@ -263,6 +285,8 @@ class Usuario
         $stmt->bindValue(':password', $this->password);
         $stmt->bindValue(':rol', $this->rol);
         $stmt->bindValue(':id', $this->id);
+
+        $this->db->cerrarConexion();
 
         return $stmt->execute();
     }

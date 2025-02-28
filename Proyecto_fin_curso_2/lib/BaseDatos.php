@@ -44,5 +44,16 @@ class BaseDatos
     {
         return $this->connection;
     }
-    
+
+    /* Cierre de la conexión con la base de datos */
+
+    public function cerrarConexion(): void
+    {
+        $this->connection = null;
+    }
+
+    public function __destruct()
+    {
+        $this->cerrarConexion();
+    }
 }

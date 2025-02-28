@@ -23,8 +23,8 @@ class Producto
 
     public function __construct()
     {
-        $this->db = new BaseDatos();
-        $this->db->conectar_datos();  // Estableces la conexión
+        // $this->db = new BaseDatos();
+        // $this->db->conectar_datos();  // Estableces la conexión
     }
 
     /**
@@ -209,40 +209,66 @@ class Producto
 
     public function getProductos()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM productos ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
+
+        $this->db->cerrarConexion();
+
         return $stmt; // Devolver el objeto PDOStatement
     }
 
     public function getProductos_categoria()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos AS p  INNER JOIN categorias c ON c.id = p.categoria_id WHERE p.categoria_id = {$this->getCategoria_id()}  ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
+        
+        $this->db->cerrarConexion();
+        
         return $stmt; // Devolver el objeto PDOStatement
     }
 
     public function get_id_productos()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM productos WHERE id = :id";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->bindValue(':id', $this->id);
         $stmt->execute();
 
+        $this->db->cerrarConexion();
+
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
     public function getRandom($limit){
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "SELECT * FROM productos ORDER BY RAND() LIMIT $limit";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
+        
+        $this->db->cerrarConexion();
+        
         return $stmt; // Devolver el objeto PDOStatement
     }
 
 
     public function save()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "INSERT INTO productos (categoria_id,nombre, descripcion, precio, stock, oferta, fecha, imagen)
         VALUES (:categoria_id,:nombre, :descripcion, :precio, :stock, :oferta, CURDATE(), :imagen)";
 
@@ -271,11 +297,16 @@ class Producto
             $this->id = $this->db->getConnection()->lastInsertId();
         }
 
+        $this->db->cerrarConexion();
+
         return $resultado;
     }
 
     public function edit()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "UPDATE productos SET 
                 categoria_id = :categoria_id,
                 nombre = :nombre,
@@ -304,17 +335,25 @@ class Producto
         }
         $stmt->bindValue(':id', $this->getId()); // Condición para editar solo el producto correcto
 
+
+        $this->db->cerrarConexion();
+
         // Ejecutar la consulta y devolver el resultado
         return $stmt->execute();
     }
 
     public function delete()
     {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
         $sql = "DELETE FROM productos WHERE id= :id";
 
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindValue(':id', $this->getId()); // Asociar el nombre con el parámetro en la consulta
+
+        $this->db->cerrarConexion();
 
         return $stmt->execute(); // Ejecutar la consulta
 
