@@ -53,6 +53,7 @@
 ## Breve explicación de lo que hace cada archivo
 
 1. assets
+
     1.1. css
     - Es el archivo el cual contiene todo el css que se utiliza en el resto de la página.
 
