@@ -182,6 +182,7 @@
 6. models
 
     6.1. categoria.php
+
     Este archivo define la clase `Categoria`, que representa las categorías en la base de datos.
 
     -  Propiedades:
@@ -202,6 +203,7 @@
     Esta clase encapsula todas las operaciones necesarias para trabajar con categorías dentro de la aplicación.
 
     6.2. producto.php
+
     Este archivo define la clase Producto, que representa los productos en la base de datos. Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos y manejar las relaciones con las categorías.
 
     - Propiedades:
@@ -336,11 +338,70 @@
 
     8.1. autoload.php
 
+    Este archivo define una función para cargar automáticamente las clases cuando se necesitan.
+
+    - Función principal:
+
+        - controllers_autoload($clase): Convierte el nombre de la clase en una ruta de archivo. Si el archivo existe, lo incluye; si no, genera un error de autoload.
+
+    - Registro de autoload:
+        - spl_autoload_register('controllers_autoload'): Registra la función controllers_autoload para que PHP cargue las clases automáticamente cuando se requieran.
+
     8.2. config.php
+
+    - En config.php se guardarán las constantes necesarias para conectar con nuestra base de datos.
+ 
+    - Constantes definidas:
+
+        - DB_HOST: Dirección del host de la base de datos (localhost).
+
+        - DB_NAME: Nombre de la base de datos (tienda).
+
+        - DB_USER: Usuario para acceder a la base de datos (root).
+
+        - DB_PASSWORD: Contraseña para el acceso a la base de datos (vacío en este caso).
+
+        - base_url: URL base de la aplicación, utilizada para generar enlaces y redirecciones.
+
+        - controller_default: Controlador predeterminado de la aplicación (productoController).
+
+        - action_default: Acción predeterminada que se ejecuta (index).
+    
+    - Resumen:
+        - Este archivo contiene las configuraciones clave para la conexión a la base de datos y las rutas predeterminadas dentro de la aplicación.
 
     8.3. index.php
 
+    Este archivo es el punto de entrada principal de la aplicación, donde se gestionan las sesiones, las solicitudes de controladores y acciones, y la visualización de las vistas.
+
+    - Flujo de Ejecución:
+        - Inicio de sesión y restauración de sesión:
+
+            - Inicia una sesión con session_start().
+            - Si no existe una sesión activa, pero sí una cookie user_login, se intenta restaurar la sesión mediante el ID almacenado en la cookie. Si el usuario existe en la base de datos, se guarda en $_SESSION['identidad'] y, si es un administrador, se guarda $_SESSION['admin'] = true.
+            
+        - Inclusión de Archivos:
+
+            - Se incluyen los archivos necesarios: autoload.php (para autoload de clases), config.php (configuraciones generales), y helpers/utils.php (funciones auxiliares).
+            Se incluyen también las vistas principales del diseño: header.php y sidebar.php.
+            Función de manejo de errores:
+
+            - Si no se encuentra el controlador o la acción especificada, se llama al método show_error() que instancia el errorController y muestra la página de error.
+
+        - Controlador y Acción:
+
+            - Verifica si se ha especificado un controlador y acción en la URL (a través de $_GET['controller'] y $_GET['action']).
+            - Si no se especifica controlador ni acción, se carga el controlador y la acción predeterminados definidos en config.php.
+            - Verifica si la clase del controlador solicitado existe. Si es así, se instancia y ejecuta la acción correspondiente.
+            - Si la clase o acción no existe, se muestra la página de error.
+
+        - Carga de pie de página:
+
+            - Al final de la ejecución, se incluye footer.php, completando el ciclo de carga de la vista.
+
     8.4. .htaccess
+
+    - En este archivo se incluye la configuración necesaria para poder utilizar rutas amigables
 
 
 ## Tecnologías Utilizadas
