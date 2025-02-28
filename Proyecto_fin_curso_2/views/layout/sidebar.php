@@ -25,12 +25,12 @@ use Helpers\Utils;
         <?php if (isset($_SESSION['admin'])): ?>
             <li><a href="<?= base_url ?>categoria/index">Gestionar categorias</a></li>
             <li><a href="<?= base_url ?>producto/gestion">Gestionar productos</a></li>
-            <li><a href="#">Gestionar pedidos</a></li>
+            <li><a href="<?= base_url ?>pedido/gestion">Gestionar pedidos</a></li>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['identidad'])): ?>
             <li><a href="<?= base_url ?>usuario/listado">Gestionar usuarios</a></li>
-            <li><a href="#">Mis pedidos</a></li>
+            <li><a href="<?= base_url ?>pedido/mis_pedidos">Mis pedidos</a></li>
         <?php else: ?>
             <li><a href="<?= base_url ?>usuario/registro">Registrate Aqui</a></li>
         <?php endif; ?>

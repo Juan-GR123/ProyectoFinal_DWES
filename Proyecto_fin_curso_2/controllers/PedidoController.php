@@ -86,7 +86,7 @@ class pedidoController
 
     public function confirmado()
     {
-        if(isset($_SESSION['identidad'])){
+        if (isset($_SESSION['identidad'])) {
             $identidad = $_SESSION['identidad'];
 
             $pedido = new Pedido();
@@ -97,8 +97,77 @@ class pedidoController
             $pedido_productos = new Pedido();
             $productos = $pedido_productos->get_Productos_Pedido($pedido->id);
         }
-      
+
 
         require_once 'views/pedido/confirmado.php';
+    }
+
+    public function mis_pedidos()
+    {
+        Utils::identidad_comprobar();
+
+
+        $usuario_id = $_SESSION['identidad']->id;
+        $pedido = new Pedido();
+
+        //sacar los pedidos del usuario
+        $pedido->setUsuario_id($usuario_id);
+        $pedidos = $pedido->get_todos_pedidos();
+
+        require_once 'views/pedido/pedidos.php';
+    }
+
+    public function detalle()
+    {
+        Utils::identidad_comprobar();
+
+        if (isset($_GET['id'])) {
+
+            $id = $_GET['id'];
+
+            //sacar el pedido
+            $pedido = new Pedido();
+            $pedido->setId($id);
+            $pedido = $pedido->get_id_pedidos();
+
+            //sacar los productos
+            $pedido_productos = new Pedido();
+            $productos = $pedido_productos->get_Productos_Pedido($id);
+
+            require_once 'views/pedido/detalle.php';
+        } else {
+            header('Location:' . base_url . 'pedido/pedidos');
+        }
+    }
+
+    public function gestion()
+    {
+        Utils::isAdmin();
+        $gestion = true;
+
+        $pedido = new Pedido();
+        $pedidos = $pedido->getPedidos();
+
+        require_once 'views/pedido/pedidos.php';
+    }
+
+    public function estado_pedidos()
+    {
+        Utils::isAdmin();
+        if (isset($_POST['pedido_id']) && isset($_POST['estado'])) {
+            //Recogo los datos del form
+            $id = $_POST['pedido_id'];
+            $estado = $_POST['estado'];
+
+            //update del pedido
+            $pedido = new Pedido();
+            $pedido->setId($id);
+            $pedido->setEstado($estado);
+            $pedido->edit();
+
+            header("Location:" . base_url. "pedido/detalle&id=".$id);
+        } else {
+            header("Location:" . base_url);
+        }
     }
 }

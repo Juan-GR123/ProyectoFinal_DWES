@@ -11,9 +11,15 @@
         <br>
         Número de pedido: <?= $pedido->id ?> <br>
         Total a pagar: <?= $pedido->coste ?> $ <br>
-        Productos: <br>
+        Productos: <br><br>
 
         <table>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Unidades</th>
+            </tr>
             <?php if (isset($productos) && is_array($productos)): ?>
                 <?php foreach ($productos as $producto): ?>
                     <tr>
@@ -34,7 +40,7 @@
                         </td>
 
                         <td>
-                             x<?= $producto->unidades ?>
+                            x<?= $producto->unidades ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

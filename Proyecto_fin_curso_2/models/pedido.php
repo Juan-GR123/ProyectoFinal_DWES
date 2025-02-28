@@ -219,7 +219,22 @@ class Pedido
 
         $this->db->cerrarConexion();
 
-        return $stmt; // Devolver el objeto PDOStatement
+        return $stmt->fetchAll(PDO::FETCH_OBJ); // Devolver el objeto PDOStatement
+    }
+
+    public function get_id_pedidos()
+    {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        $sql = "SELECT * FROM pedidos WHERE id=:id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+
+        $this->db->cerrarConexion(); //se cierra la conexión para que no haya fugas
+
+        return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
     public function getPedidosByUser()
@@ -234,6 +249,23 @@ class Pedido
         $this->db->cerrarConexion();
 
         return $stmt->fetch(PDO::FETCH_OBJ); // Devolver el objeto PDOStatement
+    }
+
+    public function get_todos_pedidos()
+    {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        $sql = "SELECT p.* FROM pedidos p WHERE p.usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        $this->db->cerrarConexion();
+
+          return $stmt->fetchAll(PDO::FETCH_OBJ); 
+          //// fetch() -> Devuelve solo una fila (el primer pedido del usuario)
+
+          /// Devuelve todas las filas (todos los pedidos del usuario)
     }
 
     public function get_Productos_Pedido($id)
@@ -315,5 +347,26 @@ class Pedido
 
         $this->db->cerrarConexion();
         return $save;  // Devolvemos el resultado de la inserción de las líneas
+    }
+
+    public function edit()
+    {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        $sql = "UPDATE pedidos SET estado=:estado WHERE id=:id";
+
+        // Preparar la consulta
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        // Asignar los valores a los parámetros
+        $stmt->bindValue(':estado', $this->getEstado());
+
+        $stmt->bindValue(':id', $this->getId()); // Condición para editar solo el producto correcto
+
+        $this->db->cerrarConexion();
+
+        // Ejecutar la consulta y devolver el resultado
+        return $stmt->execute();
     }
 }
