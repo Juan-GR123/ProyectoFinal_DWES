@@ -10,8 +10,8 @@ use Helpers\Utils;
         <h3>Mi carrito</h3>
         <ul>
             <?php $mostrar= Utils::Carrito_mostrar(); ?>
-            <li><a href="<?= base_url ?>carrito/index">Productos (<?=$mostrar['count']?>)</a></li>
-            <li><a href="<?= base_url ?>carrito/index">Total: <?=$mostrar['total']?>$ </a></li>
+            <li>Productos (<?=$mostrar['count']?>)</li>
+            <li>Total: <?=$mostrar['total']?>$</li>
             <li><a href="<?= base_url ?>carrito/index">Ver el carrito</a></li>
         </ul>
     </div>
