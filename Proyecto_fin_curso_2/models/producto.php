@@ -250,20 +250,6 @@ class Producto
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
-    //ARREGLAR
-    public function actualizarStock($nuevo_stock)
-    {
-        $db = new BaseDatos();
-        $this->db->conectar_datos();  // Estableces la conexión
-
-        $sql = "UPDATE productos SET stock = :stock WHERE id = :id";
-        
-
-        $this->db->cerrarConexion();
-
-      
-    }
-
     public function getRandom($limit)
     {
         $this->db = new BaseDatos();

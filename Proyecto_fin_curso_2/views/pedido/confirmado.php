@@ -19,7 +19,6 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Unidades</th>
-                <th>stock</th>
             </tr>
             <?php if (isset($productos) && is_array($productos)): ?>
                 <?php foreach ($productos as $producto): ?>
@@ -42,10 +41,6 @@
 
                         <td>
                             x<?= $producto->unidades ?>
-                        </td>
-
-                        <td>
-                        <?= $producto->stock ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
