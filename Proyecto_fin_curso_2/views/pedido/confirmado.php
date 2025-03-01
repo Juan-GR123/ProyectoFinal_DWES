@@ -5,7 +5,7 @@
         bancaria a la cuenta 7548392424238912ASS con el coste pedido sera procesado y enviado.
     </p>
     <br>
-    <?php if (isset($pedido)): ?>
+    <?php if (isset($pedido) && isset($productos)): ?>
 
         <h3>Datos del pedido: </h3>
         <br>
@@ -19,6 +19,7 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Unidades</th>
+                <th>stock</th>
             </tr>
             <?php if (isset($productos) && is_array($productos)): ?>
                 <?php foreach ($productos as $producto): ?>
@@ -42,6 +43,10 @@
                         <td>
                             x<?= $producto->unidades ?>
                         </td>
+
+                        <td>
+                        <?= $producto->stock ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -52,4 +57,5 @@
     <?php endif; ?>
 <?php elseif (isset($_SESSION['pedido']) && $_SESSION['pedido'] != 'complete'): ?>
     <h1>Tu perdido NO ha podido procesarse</h1>
+    <p>Hubo un problema al procesar tu pedido. Por favor, intenta nuevamente o contacta con el soporte.</p>
 <?php endif; ?>

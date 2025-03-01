@@ -229,9 +229,9 @@ class Producto
         $sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos AS p  INNER JOIN categorias c ON c.id = p.categoria_id WHERE p.categoria_id = {$this->getCategoria_id()}  ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
-        
+
         $this->db->cerrarConexion();
-        
+
         return $stmt; // Devolver el objeto PDOStatement
     }
 
@@ -250,16 +250,31 @@ class Producto
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
     }
 
-    public function getRandom($limit){
+    //ARREGLAR
+    public function actualizarStock($nuevo_stock)
+    {
+        $db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        $sql = "UPDATE productos SET stock = :stock WHERE id = :id";
+        
+
+        $this->db->cerrarConexion();
+
+      
+    }
+
+    public function getRandom($limit)
+    {
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
 
         $sql = "SELECT * FROM productos ORDER BY RAND() LIMIT $limit";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
-        
+
         $this->db->cerrarConexion();
-        
+
         return $stmt; // Devolver el objeto PDOStatement
     }
 

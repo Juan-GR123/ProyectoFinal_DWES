@@ -106,7 +106,17 @@
 
     2.4. PedidoController.php
 
-  
+    Maneja las operaciones relacionadas con la creación, visualización y gestión de pedidos. El controlador interactúa con el modelo Pedido para realizar las operaciones de base de datos y con el modelo Producto para obtener los productos en un pedido. Además, valida la entrada de datos y redirige al usuario según el estado de sus pedidos.
+
+    - Funciones principales 
+    - **`hacer()`**: Muestra la vista para realizar un pedido (views/pedido/hacer.php).
+    - **`add()`**: Recibe la información del formulario de un nuevo pedido, valida los datos de entrada y     guarda el pedido en la base de datos. También maneja la creación de las líneas de pedido (productos) y redirige al usuario a una página de confirmación.
+    - **`confirmado()`**: Muestra una vista de confirmación del pedido (views/pedido/confirmado.php) con los detalles del pedido y los productos asociados.
+    -**`mis_pedidos()`** : Muestra todos los pedidos de un usuario autenticado, obteniendo los datos de la base de datos.
+    - **`detalle()`**: Muestra los detalles de un pedido específico, incluyendo los productos asociados, si se proporciona un ID de pedido.
+    - **`gestion()`**: Función administrativa que permite gestionar todos los pedidos, solo accesible para administradores.
+    - **`estado_pedidos()`**: Actualiza el estado de un pedido específico, solo accesible para administradores.
+
 
     2.5. ProductoController.php
 
@@ -297,6 +307,62 @@
 
     - **`update()`**: Actualiza los datos de un usuario específico en la base de datos (nombre, apellidos, email, password, rol) mediante su ID. Este método es útil para modificar la información de un usuario existente.
 
+    6.4. pedidos.php
+
+    Este archivo define la clase Pedido, que gestiona las operaciones relacionadas con los pedidos de los usuarios, como la creación de pedidos, la obtención de pedidos, la actualización de su estado y la recuperación de productos asociados a un pedido. La clase también maneja la inserción de productos en las líneas de pedidos.
+
+    - Propiedades:
+
+    - **`$id`**: Identificador único del pedido.
+    - **`$usuario_id`**: Identificador del usuario que realiza el pedido.
+    - **`$provincia`**: Provincia de envío del pedido.
+    - **`$localidad`**: Localidad de envío del pedido.
+    - **`$direccion`**: Dirección de envío del pedido.
+    - **`$coste`**: Coste total del pedido.
+    - **`$estado`**: Estado actual del pedido (por ejemplo, 'confirmado').
+    - **`$fecha`**: Fecha en la que se realiza el pedido.
+    - **`$hora`**: Hora en la que se realiza el pedido.
+    - **`$db`**: Instancia de la clase BaseDatos, responsable de gestionar la conexión a la base de datos.
+
+    Métodos principales:
+
+    - **`__construct()`**: Inicializa la conexión a la base de datos utilizando la clase BaseDatos. En este caso, el constructor no realiza nada dentro de la clase (aunque la conexión es manejada en los métodos individuales).
+
+    - **`getId() / setId($id)`**: Métodos para obtener y establecer el ID del pedido.
+
+    - **`getUsuario_id() / setUsuario_id($usuario_id)`**: Métodos para obtener y establecer el ID del usuario que realiza el pedido.
+
+    - **`getProvincia() / setProvincia($provincia)`**: Métodos para obtener y establecer la provincia de envío.
+
+    - **`getLocalidad() / setLocalidad($localidad)`**: Métodos para obtener y establecer la localidad de envío.
+
+    - **`getDireccion() / setDireccion($direccion)`**: Métodos para obtener y establecer la dirección de envío.
+
+    - **`getCoste() / setCoste($coste)`**: Métodos para obtener y establecer el coste total del pedido.
+
+    - **`getEstado() / setEstado($estado)`**: Métodos para obtener y establecer el estado del pedido.
+
+    - **`getFecha() / setFecha($fecha)`**: Métodos para obtener y establecer la fecha del pedido.
+
+    - **`getHora() / setHora($hora)`**: Métodos para obtener y establecer la hora del pedido.
+
+    - **`getPedidos()`**: Recupera todos los pedidos de la base de datos, ordenados por ID de forma descendente.
+
+    - **`get_id_pedidos()`**: Recupera un pedido específico mediante su ID.
+
+    - **`getPedidosByUser()`**: Recupera el último pedido realizado por un usuario específico, ordenado por ID de forma descendente.
+
+    - **`get_todos_pedidos()`**: Recupera todos los pedidos de un usuario específico, ordenados por ID de forma descendente.
+
+    - **`get_Productos_Pedido($id)`**: Recupera todos los productos asociados a un pedido específico. Utiliza una consulta JOIN para obtener los productos del pedido en función de su relación con la tabla lineas_pedidos.
+
+    - **`save()`**: Guarda un nuevo pedido en la base de datos utilizando los datos del objeto actual (usuario_id, provincia, localidad, dirección, coste, estado, fecha, hora). Al insertar el pedido, se genera automáticamente el ID del nuevo pedido y se devuelve.
+
+    - **`save_linea($pedido_id)`**: Guarda las líneas del pedido en la tabla lineas_pedidos asociada al pedido. Recibe el ID del pedido como argumento y, por cada producto en el carrito del usuario, inserta una línea de pedido correspondiente.
+
+    - **`edit()`**: Actualiza el estado de un pedido en la base de datos. Este método es útil para cambiar el estado de un pedido (por ejemplo, de 'confirmado' a 'enviado').
+
+
 
 7. views
 
@@ -333,6 +399,29 @@
 
     7.5.4. modificar.php
     - Se dara un formulario con los datos actuales del usuario y tu solo tendrás que cambiarlos para que se guarden
+
+    7.6. Pedido
+
+    - confirmado.php: 
+        - Muestra un mensaje de confirmación de pedido y detalles sobre el pedido (número, coste, productos).
+        - Si el pedido no se completó, muestra un mensaje de error.
+
+    - detalle.php: 
+        - Muestra los detalles de un pedido específico, incluyendo la dirección de envío, estado del pedido y lista de productos.
+        - Si el usuario es administrador, permite cambiar el estado del pedido.
+
+    - hacer.php: 
+
+        - Permite al usuario realizar un nuevo pedido, solicitando información como la provincia, localidad y dirección de envío.
+        
+        - Muestra un mensaje de éxito o error según el estado del pedido en la sesión.
+        
+        - Requiere que el usuario esté logueado para hacer un pedido.
+
+    - pedidos.php: 
+
+        - Muestra una lista de pedidos, ya sea para que el usuario vea los suyos o para que un administrador los gestione.
+        - Muestra el número de pedido, coste, fecha y estado de cada uno, con enlaces a los detalles del pedido.
 
 8. Archivos en la raiz del proyecto
 

@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Helpers\Utils;
 use Models\Pedido;
+use Models\Producto;
 
 class pedidoController
 {
@@ -102,6 +103,7 @@ class pedidoController
         require_once 'views/pedido/confirmado.php';
     }
 
+
     public function mis_pedidos()
     {
         Utils::identidad_comprobar();
@@ -165,7 +167,7 @@ class pedidoController
             $pedido->setEstado($estado);
             $pedido->edit();
 
-            header("Location:" . base_url. "pedido/detalle&id=".$id);
+            header("Location:" . base_url . "pedido/detalle&id=" . $id);
         } else {
             header("Location:" . base_url);
         }
