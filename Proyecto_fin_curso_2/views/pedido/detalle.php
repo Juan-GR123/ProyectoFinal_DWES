@@ -15,7 +15,7 @@ use Helpers\Utils;
                 <option value="confirm" <?= $pedido->estado == "confirm" ? 'selected' : ''; ?>>Pendiente</option>
                 <option value="preparation" <?= $pedido->estado == "preparation" ? 'selected' : ''; ?>>En preparacion</option>
                 <option value="ready" <?= $pedido->estado == "ready" ? 'selected' : ''; ?>>Preparando para el envio</option>
-                <option value="sender" <?= $pedido->estado == "sended" ? 'selected' : ''; ?>>Enviado</option>
+                <option value="sended" <?= $pedido->estado == "sended" ? 'selected' : ''; ?>>Enviado</option>
             </select>
             <input type="submit" value="Cambiar estado">
         </form>

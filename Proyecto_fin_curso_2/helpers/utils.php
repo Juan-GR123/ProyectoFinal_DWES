@@ -79,7 +79,7 @@ class Utils
             $valor='En preparacion';
         }elseif($estado == 'ready'){
             $valor='Preparado para enviar';
-        }elseif($estado == 'sender'){
+        }elseif($estado == 'sended'){
             $valor='Enviado';
         }
 

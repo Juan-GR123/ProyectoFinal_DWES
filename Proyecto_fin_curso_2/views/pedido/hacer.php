@@ -21,7 +21,7 @@ use Helpers\Utils;
         <label for="provincia">Provincia</label>
         <input type="text" name="provincia" required>
 
-        <label for="localidad">localidad</label>
+        <label for="localidad">Localidad</label>
         <input type="text" name="localidad" required>
 
         <label for="direccion">Dirección</label>
