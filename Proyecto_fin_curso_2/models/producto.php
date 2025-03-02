@@ -348,12 +348,20 @@ class Producto
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
 
+         // Primero eliminar las líneas de pedido asociadas a este producto
+         $sql = "DELETE FROM lineas_pedidos WHERE producto_id = :id";
+         $stmt = $this->db->getConnection()->prepare($sql);
+         $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+         $stmt->execute();
+
+         // Eliminar pedidos relacionados con el producto
+        $sqlPedidos = "DELETE FROM pedidos WHERE id NOT IN (SELECT DISTINCT pedido_id FROM lineas_pedidos)"; //esta linea selecciona los pedidos que ya no tienen lineas pedidos
+        $stmtPedidos = $this->db->getConnection()->prepare($sqlPedidos);
+        $stmtPedidos->execute();
+
         $sql = "DELETE FROM productos WHERE id= :id";
-
         $stmt = $this->db->getConnection()->prepare($sql);
-
         $stmt->bindValue(':id', $this->getId()); // Asociar el nombre con el parámetro en la consulta
-
         $this->db->cerrarConexion();
 
         return $stmt->execute(); // Ejecutar la consulta
