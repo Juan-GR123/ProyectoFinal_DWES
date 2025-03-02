@@ -262,29 +262,29 @@ class Pedido
 
         $this->db->cerrarConexion();
 
-          return $stmt->fetchAll(PDO::FETCH_OBJ); 
-          //// fetch() -> Devuelve solo una fila (el primer pedido del usuario)
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        //// fetch() -> Devuelve solo una fila (el primer pedido del usuario)
 
-          /// Devuelve todas las filas (todos los pedidos del usuario)
+        /// Devuelve todas las filas (todos los pedidos del usuario)
     }
 
     public function get_Productos_Pedido($id)
     {
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
-    
+
         // $sql = "SELECT * FROM productos WHERE id IN (SELECT producto_id FROM lineas_pedidos WHERE pedido_id={$id})";
 
         $sql = "SELECT pr.*, lp.unidades FROM productos pr INNER JOIN lineas_pedidos lp ON pr.id = lp.producto_id WHERE lp.pedido_id = {$id}";
-    
+
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
-    
+
         // Obtener todos los productos como un array de objetos
         $productos = $stmt->fetchAll(PDO::FETCH_OBJ);
-    
+
         $this->db->cerrarConexion();
-    
+
         return $productos; // Devolver un array de objetos
     }
 
@@ -368,5 +368,34 @@ class Pedido
 
         // Ejecutar la consulta y devolver el resultado
         return $stmt->execute();
+    }
+
+    public function delete()
+    {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        // Eliminar primero las líneas del pedido
+        $sql = "DELETE FROM lineas_pedidos WHERE pedido_id = :pedido_id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindParam(':pedido_id', $this->id, PDO::PARAM_INT);
+
+        // Ejecutamos la eliminación de las líneas del pedido
+        $lineas_eliminadas = $stmt->execute();
+
+
+        // Ahora eliminar el pedido
+        $sql = "DELETE FROM pedidos WHERE id = :id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+
+        // Ejecutamos la eliminación del pedido
+        $resultado = $stmt->execute();
+
+
+        $this->db->cerrarConexion();
+
+        return $resultado; //devuelve un objeto
+
     }
 }

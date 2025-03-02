@@ -2,6 +2,17 @@
 
 use Helpers\Utils;
 
+if (isset($_SESSION['pedido']) && $_SESSION['pedido'] == 'failed') {
+    // Mostramos un mensaje de error con estilo
+    echo "Error al intentar borrar el pedido. Por favor, inténtalo de nuevo.";
+    // Limpiamos el mensaje de la sesión para que no se vuelva a mostrar
+    unset($_SESSION['pedido']);
+} elseif (isset($_SESSION['pedido']) && $_SESSION['pedido'] == 'eliminado') {
+    echo "El pedido se ha borrado con exito";
+    // Limpiamos el mensaje de la sesión para que no se vuelva a mostrar
+    unset($_SESSION['pedido']);
+}
+
 ?>
 
 <?php if (isset($gestion)): ?>

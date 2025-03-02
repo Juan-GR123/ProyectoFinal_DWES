@@ -172,4 +172,56 @@ class pedidoController
             header("Location:" . base_url);
         }
     }
+
+    public function eliminar()
+    {
+        if (isset($_GET['id'])) {
+            // Obtener el ID del pedido a eliminar
+            $pedido_id = $_GET['id'];
+
+            // Verificar si el usuario está autenticado
+            if (isset($_SESSION['identidad'])) {
+                $usuario_id = $_SESSION['identidad']->id;
+                $usuario_rol = $_SESSION['identidad']->rol; // Obtener el rol del usuario
+
+                // Instanciar el modelo Pedido
+                $pedido = new Pedido();
+                $pedido->setId($pedido_id);
+
+                // Verificar si el pedido pertenece al usuario autenticado
+                $pedido_data = $pedido->get_id_pedidos();
+
+                if ($pedido_data) {
+                    // Verificar si el usuario es el propietario del pedido o un administrador
+                    if ($pedido_data->usuario_id == $usuario_id || $usuario_rol == 'admin') {
+                        // Eliminar las líneas de pedido asociadas a este pedido
+                        $eliminar_lineas = $pedido->delete(); // El método delete eliminará las líneas y el pedido.
+
+                        if ($eliminar_lineas) {
+                            $_SESSION['pedido'] = "eliminado"; // Mensaje de éxito
+                        } else {
+                            $_SESSION['pedido'] = "failed"; // Mensaje de error
+                        }
+                    } else {
+                        // Si el pedido no pertenece al usuario ni es un admin
+                        $_SESSION['pedido'] = "failed";
+                    }
+                } else {
+                    // Si el pedido no pertenece al usuario, redirigir
+                    $_SESSION['pedido'] = "failed"; 
+                }
+            } else {
+                // Si el usuario no está autenticado, redirigir a la página de inicio
+                $_SESSION['pedido'] = "failed"; // Error: Usuario no autenticado
+                header("Location: " . base_url);
+            }
+        } else {
+            // Si no se ha pasado un ID válido, redirigir
+            $_SESSION['pedido'] = "failed"; // Error: ID no válido
+            header("Location: " . base_url . 'pedido/mis_pedidos');
+        }
+
+        // Redirigir a la vista de mis pedidos después de intentar eliminar
+        header("Location: " . base_url . 'pedido/mis_pedidos');
+    }
 }

@@ -52,11 +52,11 @@ class usuarioController
             $errores = [];
 
             // Validar nombre y apellidos (solo letras y espacios)
-            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $nombre)) {
+            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d ]{2,50}$/", $nombre)) {
                 $errores[] = "El nombre no es válido.";
             }
 
-            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $apellidos)) {
+            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d ]{2,50}$/", $apellidos)) {
                 $errores[] = "Los apellidos no son válidos.";
             }
 
@@ -269,7 +269,7 @@ class usuarioController
             }
 
             // Validar nombre
-            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $nombre)) {
+            if (!$nombre || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d ]{2,50}$/", $nombre)) {
                 $_SESSION['update'] = 'failed';
                 $_SESSION['error_update'] = 'El nombre debe tener al menos 3 caracteres.';
                 header("Location:" . base_url . 'usuario/listado');
@@ -277,7 +277,7 @@ class usuarioController
             }
 
             // Validar apellidos
-            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,50}$/", $apellidos)) {
+            if (!$apellidos || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d ]{2,50}$/", $apellidos)) {
                 $_SESSION['update'] = 'failed';
                 $_SESSION['error_update'] = 'Los apellidos deben tener al menos 3 caracteres.';
                 header("Location:" . base_url . 'usuario/listado');

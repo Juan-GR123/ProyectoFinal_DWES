@@ -2,6 +2,7 @@
 
 use Helpers\Utils;
 
+
 ?>
 
 <h1>Detalles del pedido</h1>
@@ -69,5 +70,21 @@ use Helpers\Utils;
             <p>No se encontraron productos para este pedido.</p>
         <?php endif; ?>
     </table>
+
+    <?php
+    // // var_dump($_SESSION); // Verifica si 'identidad' está definida
+    //   var_dump($pedido->usuario_id); // ID del usuario que realizó el pedido
+    //   var_dump($pedido->id);
+    //   var_dump($_SESSION['identidad']->id); // ID del pedido autenticado
+    ?>
+
+
+    <!-- Botón eliminar pedido (fuera de la tabla) -->
+    <?php if (isset($_SESSION['identidad']) && $pedido->usuario_id == $_SESSION['identidad']->id || $_SESSION['identidad']->rol == 'admin'): ?>
+        <h3>Eliminar pedido</h3>
+        <form action="<?= base_url ?>pedido/eliminar&id=<?= $pedido->id ?>" method="GET">
+            <input type="submit" value="Eliminar pedido" class="btn btn-danger">
+        </form>
+    <?php endif; ?>
 
 <?php endif; ?>
