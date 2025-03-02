@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2025 a las 13:51:55
+-- Tiempo de generación: 02-03-2025 a las 19:03:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -121,8 +121,8 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `descripcion`, `precio`, `stock`, `oferta`, `fecha`, `imagen`) VALUES
 (1, 7, 'Alas de fuego', 'Libro de fantasia', 20.00, 4, '0', '2025-02-25', '91YXlIlJTPL._AC_UF1000,1000_QL80_.jpg'),
-(2, 7, 'Alas de sangre', 'libro de fantasia', 23.00, 34, '0', '2025-02-25', '91UJR77PRFL._UF1000,1000_QL80_.jpg'),
-(5, 7, 'Libro nuevo', 'Este es el libro nuevo 2', 40.00, 120, '0', '2025-02-25', 'portada-libros-100px.jpg');
+(2, 2, 'Alas de sangre', 'libro de fantasia 2', 23.00, 34, '0', '2025-02-25', '91UJR77PRFL._UF1000,1000_QL80_.jpg'),
+(5, 1, 'Libro nuevo', 'Este es el libro nuevo 2', 40.00, 120, '0', '2025-02-25', 'portada-libros-100px.jpg');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `password`, `rol`,
 (1, 'Admin', 'Admin', 'admin@admin.com', 'contraseña', 'admin', NULL),
 (3, 'Pepe', 'algo', 'algo@algo.com', '$2y$04$WRDHS0ncRWwxgDeagwEfPO4Bpuq4LjwnIwYxfGeRDGt1eWKYBM.q.', 'user', NULL),
 (12, 'PE', 'Calavera', 'algo3@algo.com', '$2y$04$JLSVg3uhZjTGeZuCV3JZzOVHiAMufcpkLq4l3MPjv19VZTQkh.j.i', 'admin', NULL),
-(23, 'sas', 'algo', 'algo4@algo.com', '$2y$04$suVvkP0/TSQLnppZSo4mCuQY9MyoWhNyMM2w5tQYe9IcTnaX2xCCm', 'admin', NULL),
+(23, 'sas', 'algo', 'algo4@algo.com', '$2y$04$suVvkP0/TSQLnppZSo4mCuQY9MyoWhNyMM2w5tQYe9IcTnaX2xCCm', 'user', NULL),
 (31, 'prueba2', 'algo2', 'algo5@algo.com', '$2y$04$jEVtgJXOknJVuFnfW6PAFObcYjNm.xt5R0e.n/ETJ0xqaiMj9mAUS', 'admin', NULL);
 
 --
@@ -204,25 +204,25 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `lineas_pedidos`
 --
 ALTER TABLE `lineas_pedidos`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Restricciones para tablas volcadas
