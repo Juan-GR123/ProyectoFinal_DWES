@@ -305,9 +305,11 @@
 
     - **`get_id_editar()`**: Recupera los detalles de un usuario específico según su ID, utilizado generalmente para la edición de un usuario.
 
+    - **`delete()`**: Eliminar un usuario y ademas eliminar todos los pedidos que haya hecho
+
     - **`update()`**: Actualiza los datos de un usuario específico en la base de datos (nombre, apellidos, email, password, rol) mediante su ID. Este método es útil para modificar la información de un usuario existente.
 
-    6.4. pedidos.php
+    6.4. pedido.php
 
     Este archivo define la clase Pedido, que gestiona las operaciones relacionadas con los pedidos de los usuarios, como la creación de pedidos, la obtención de pedidos, la actualización de su estado y la recuperación de productos asociados a un pedido. La clase también maneja la inserción de productos en las líneas de pedidos.
 
@@ -362,6 +364,7 @@
 
     - **`edit()`**: Actualiza el estado de un pedido en la base de datos. Este método es útil para cambiar el estado de un pedido (por ejemplo, de 'confirmado' a 'enviado').
 
+    -**`delete()`**: Eliminar los pedidos que se deseen eliminar
 
 
 7. views
