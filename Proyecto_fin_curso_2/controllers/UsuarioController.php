@@ -209,6 +209,45 @@ class usuarioController
         }
     }
 
+    public function eliminar(){
+         // Verifica si el usuario está logueado
+         Utils::Sesion_iniciada();
+
+         // Solo admin puede editar a cualquiera, el user solo a sí mismo
+         if (isset($_GET['id'])) {
+             $id = $_GET['id'];
+ 
+             // Si no es admin y quiere editar a otro, redirige
+             if (!isset($_SESSION['admin']) && $id != $_SESSION['identidad']->id) {
+                 header("Location:" . base_url);
+                 exit();
+             }
+ 
+             $usuario = new Usuario();
+             $usuario->setId($id); // Establecemos el ID del usuario que queremos editar
+             
+             $eliminado = $usuario->delete(); // Método que elimina al usuario de la BD
+
+             if ($eliminado) { // Si se eliminó correctamente...
+                $_SESSION['delete'] = "complete";
+    
+                // Si el usuario eliminado es el mismo que está logueado, cerrar su sesión
+                if ($id == $_SESSION['identidad']->id) {
+                    unset($_SESSION['identidad']);
+                    unset($_SESSION['admin']);
+                    session_destroy();
+                    header("Location:" . base_url . "usuario/sesion");
+                    exit();
+                }
+            } else {
+                $_SESSION['delete'] = "failed";
+            }
+         } else {
+           $_SESSION['delete'] = "failed";
+         }
+         header("Location:" . base_url . 'usuario/listado');
+    }
+
     public function update()
     {
         Utils::Sesion_iniciada();

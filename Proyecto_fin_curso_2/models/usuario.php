@@ -193,7 +193,7 @@ class Usuario
         if ($resultado) {
             $this->id = $this->db->getConnection()->lastInsertId();
         }
-        
+
         $this->db->cerrarConexion();
 
         return $resultado;
@@ -232,7 +232,7 @@ class Usuario
                 $result = $usuario;  // Si la autenticación es correcta, devolvemos el usuario
             }
         }
-        
+
         $this->db->cerrarConexion();
 
         return $result;
@@ -269,6 +269,33 @@ class Usuario
         $this->db->cerrarConexion();
 
         return $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
+    }
+
+    public function delete()
+    {
+        $this->db = new BaseDatos();
+        $this->db->conectar_datos();  // Estableces la conexión
+
+        // Eliminar las líneas de pedido asociadas a los pedidos del usuario
+        $sqlLineasPedidos = "DELETE FROM lineas_pedidos WHERE pedido_id IN (SELECT id FROM pedidos WHERE usuario_id = :id)";
+        $stmtLineasPedidos = $this->db->getConnection()->prepare($sqlLineasPedidos);
+        $stmtLineasPedidos->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmtLineasPedidos->execute();
+
+        // Eliminar pedidos relacionados con el usuario
+        $sqlPedidos = "DELETE FROM pedidos WHERE usuario_id = :id";
+        $stmtPedidos = $this->db->getConnection()->prepare($sqlPedidos);
+        $stmtPedidos->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmtPedidos->execute();
+
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $resultado = $stmt->execute();  // Ejecutar correctamente
+
+        $this->db->cerrarConexion();
+
+        return $resultado; //devuelve un objeto
     }
 
     public function update()

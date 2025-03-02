@@ -1,5 +1,17 @@
 <h1>Listado de Usuarios</h1>
 
+
+<!-- Mensajes de eliminación -->
+<?php if (isset($_SESSION['delete'])): ?>
+    <div class="<?= $_SESSION['delete'] == 'complete' ? 'success' : 'error' ?>">
+        <strong>
+            <?= $_SESSION['delete'] == 'complete' ? 'Usuario eliminado correctamente.' : 'Error al eliminar usuario.' ?>
+        </strong>
+    </div>
+    <?php unset($_SESSION['delete']); ?>
+<?php endif; ?>
+
+
 <?php if (isset($_SESSION['error_update'])): ?>
     <div class="error_update">
         <strong class="rojo"><?= htmlspecialchars($_SESSION['error_update']) ?></strong>
@@ -31,6 +43,7 @@ if (isset($_SESSION['admin'])):
                     <?php if (isset($_SESSION['admin']) || $_SESSION['identidad']->id == $usuario->id): ?>
                         <a href="<?= base_url ?>usuario/editar&id=<?= $usuario->id ?>">Editar</a>
                         <!-- le mandas el id por url para identificar qué usuario se va a editar en la base de datos. -->
+                        <a href="<?= base_url ?>usuario/eliminar&id=<?= $usuario->id ?>">Eliminar</a>
                     <?php endif; ?>
                 </td>
             </tr>
@@ -58,6 +71,7 @@ if (isset($_SESSION['admin'])):
                     <td><?= $usuario->rol ?></td>
                     <td>
                         <a href="<?= base_url ?>usuario/editar&id=<?= $usuario->id ?>">Editar</a>
+                        <a href="<?= base_url ?>usuario/eliminar&id=<?= $usuario->id ?>">Eliminar</a>
                     </td>
                 </tr>
             <?php endif; ?>
