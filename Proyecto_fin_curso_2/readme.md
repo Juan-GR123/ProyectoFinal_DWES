@@ -116,6 +116,7 @@
     - **`detalle()`**: Muestra los detalles de un pedido específico, incluyendo los productos asociados, si se proporciona un ID de pedido.
     - **`gestion()`**: Función administrativa que permite gestionar todos los pedidos, solo accesible para administradores.
     - **`estado_pedidos()`**: Actualiza el estado de un pedido específico, solo accesible para administradores.
+    - **`eliminar()`**: Borra un pedido si pertenece al usuario que quiera borrarlo o si es administrador.
 
 
     2.5. ProductoController.php
