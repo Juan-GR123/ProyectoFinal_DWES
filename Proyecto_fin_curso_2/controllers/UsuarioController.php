@@ -315,7 +315,8 @@ class usuarioController
                 $usuario->setPassword(password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]));
             }elseif(!empty($_POST['password'])){
                 $usuario->setPassword($password);
-            }
+            } //si la contraseña no cumple los requerimientos te la guardara pero luego no podrás iniciar sesión
+            //no me ha dado tiempo a implementarlo, perdon!!!!
 
             // if ($usuario->update()) {
             //     $_SESSION['update'] = 'complete';
