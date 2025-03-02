@@ -193,9 +193,6 @@ class pedidoController
 
                 if ($pedido_data) {
                     // Verificar si el usuario es el propietario del pedido o un administrador
-                    
-                    //No he podido hacer que gestion pedidos se pase tambien a los usuarios asi que solo van a
-                    //poder modificarlos los administradores. NO ME HA DADO TIEMPO PERDONN!!!!
                     if ($pedido_data->usuario_id == $usuario_id || $usuario_rol == 'admin') {
                         // Eliminar las líneas de pedido asociadas a este pedido
                         $eliminar_lineas = $pedido->delete(); // El método delete eliminará las líneas y el pedido.
