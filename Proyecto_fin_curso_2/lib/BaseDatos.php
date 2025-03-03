@@ -34,18 +34,22 @@ class BaseDatos
                 $this->user,
                 $this->pass
             );
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //si pilla algún error se va al catch
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
     }
+
+    // PDO::ATTR_ERRMODE: Configura cómo PDO maneja los errores.
+    // PDO::ERRMODE_EXCEPTION: Hace que PDO lance excepciones (PDOException) cuando ocurre un error.
 
     public function getConnection()
     {
         return $this->connection;
     }
 
-    /* Cierre de la conexión con la base de datos */
+    /* Cierre de la conexión con la base de datos: Esto se hace en todas las funciones 
+    para que no haya fugas de datos */
 
     public function cerrarConexion(): void
     {

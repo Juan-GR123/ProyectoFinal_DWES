@@ -207,7 +207,7 @@ class Producto
         return $this;
     }
 
-    public function getProductos()
+    public function getProductos() //devuelve un array con todos los productos
     {
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
@@ -221,7 +221,7 @@ class Producto
         return $stmt; // Devolver el objeto PDOStatement
     }
 
-    public function getProductos_categoria()
+    public function getProductos_categoria() //devuelve una lista de los productos de una categoria en especifico
     {
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
@@ -235,7 +235,7 @@ class Producto
         return $stmt; // Devolver el objeto PDOStatement
     }
 
-    public function get_id_productos()
+    public function get_id_productos()// devuelve un productos en especifico
     {
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión

@@ -1,5 +1,5 @@
 <?php
-// Modificamos config.php para que cargue las variables desde $_ENV:
+// Modificamos config.php para que cargue las variables desde .env:
     define('DB_HOST', 'localhost');
     define('DB_NAME', 'tienda');
     define('DB_USER', 'root');

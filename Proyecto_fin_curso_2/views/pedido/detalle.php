@@ -80,6 +80,8 @@ use Helpers\Utils;
 
 
     <!-- Botón eliminar pedido (fuera de la tabla) -->
+     <!-- Si el usuario esta logueado, el id del usuario que ha realizado el pedido es igual al id
+      del usuario logueado o si el usuario logueado es un admin entonces se dará la opción de eliminar el pedido -->
     <?php if (isset($_SESSION['identidad']) && $pedido->usuario_id == $_SESSION['identidad']->id || $_SESSION['identidad']->rol == 'admin'): ?>
         <h3>Eliminar pedido</h3>
         <form action="<?= base_url ?>pedido/eliminar&id=<?= $pedido->id ?>" method="GET">

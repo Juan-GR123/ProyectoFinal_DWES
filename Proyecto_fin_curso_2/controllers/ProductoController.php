@@ -22,7 +22,7 @@ class productoController
     public function ver(){
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $editar = true;
+            // $editar = true;
 
             $producto = new Producto();
             $producto->setId($id);

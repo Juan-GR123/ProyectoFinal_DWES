@@ -219,7 +219,7 @@ class Pedido
 
         $this->db->cerrarConexion();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ); // Devolver el objeto PDOStatement
+        return $stmt->fetchAll(PDO::FETCH_OBJ); // Devolver el array de pedidos como un objeto 
     }
 
     public function get_id_pedidos()
@@ -242,13 +242,16 @@ class Pedido
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
 
+        //te localiza si hay un usuario con el id requerido y su existe que muestres el coste y
+        // el id de sus pedidos 
+
         $sql = "SELECT p.id, p.coste  FROM pedidos p    WHERE usuario_id = {$this->getUsuario_id()} ORDER BY id DESC LIMIT 1";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
 
         $this->db->cerrarConexion();
 
-        return $stmt->fetch(PDO::FETCH_OBJ); // Devolver el objeto PDOStatement
+        return $stmt->fetch(PDO::FETCH_OBJ); // Devolver el array como objeto
     }
 
     public function get_todos_pedidos()
@@ -256,6 +259,7 @@ class Pedido
         $this->db = new BaseDatos();
         $this->db->conectar_datos();  // Estableces la conexión
 
+        //coge en la consulta todos los pedidos pertenecientes a un usuario
         $sql = "SELECT p.* FROM pedidos p WHERE p.usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
@@ -275,6 +279,7 @@ class Pedido
 
         // $sql = "SELECT * FROM productos WHERE id IN (SELECT producto_id FROM lineas_pedidos WHERE pedido_id={$id})";
 
+        //muestra todos los productos de un pedido donde el id del pedido sea igual al id que se pasa
         $sql = "SELECT pr.*, lp.unidades FROM productos pr INNER JOIN lineas_pedidos lp ON pr.id = lp.producto_id WHERE lp.pedido_id = {$id}";
 
         $stmt = $this->db->getConnection()->prepare($sql);
@@ -316,6 +321,7 @@ class Pedido
         //si existe la consulta se asegura de que el id vaya por orden
         if ($resultado) {
             $pedido_id = $this->id = $this->db->getConnection()->lastInsertId();
+            $this->db->cerrarConexion();
             return $pedido_id; // Devolvemos el ID para usarlo en las líneas de pedido
         }
 

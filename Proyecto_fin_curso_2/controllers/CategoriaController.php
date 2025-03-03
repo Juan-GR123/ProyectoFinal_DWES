@@ -11,9 +11,10 @@ class categoriaController
     //me muestra la lista de categorias
     public function index()
     {
+        //comprueba que el usuario es administrador
         Utils::isAdmin();
         $categoria = new Categoria();
-        $categorias = $categoria->getCategorias();
+        $categorias = $categoria->getCategorias(); //coge una lista de todas las categorias y las muestra
 
         require_once 'views/categoria/index.php';
     }

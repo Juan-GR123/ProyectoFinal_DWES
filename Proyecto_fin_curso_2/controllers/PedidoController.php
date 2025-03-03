@@ -82,7 +82,7 @@ class pedidoController
             //Redirigir al index
             header("Location: " . base_url);
         }
-        header("Location:" . base_url . 'pedido/confirmado');
+        header("Location:" . base_url . 'pedido/confirmado'); //te lleva a la funcion confirmado de mas abajo
     }
 
     public function confirmado()
@@ -130,7 +130,7 @@ class pedidoController
             //sacar el pedido
             $pedido = new Pedido();
             $pedido->setId($id);
-            $pedido = $pedido->get_id_pedidos();
+            $pedido = $pedido->get_id_pedidos(); //devuelve el pedido que coincida con el id que se pasa
 
             //sacar los productos
             $pedido_productos = new Pedido();
@@ -176,7 +176,7 @@ class pedidoController
     public function eliminar()
     {
         if (isset($_GET['id'])) {
-            // Obtener el ID del pedido a eliminar
+            // Obtener el ID del pedido a eliminar por url
             $pedido_id = $_GET['id'];
 
             // Verificar si el usuario está autenticado
@@ -189,6 +189,7 @@ class pedidoController
                 $pedido->setId($pedido_id);
 
                 // Verificar si el pedido pertenece al usuario autenticado
+                // Devuelve los pedidos del usuario que tiene la id que se ha pasado por url
                 $pedido_data = $pedido->get_id_pedidos();
 
                 if ($pedido_data) {

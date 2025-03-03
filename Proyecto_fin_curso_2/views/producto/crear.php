@@ -2,7 +2,7 @@
 
 use Helpers\Utils;
 
-
+//en caso de que la variable editar sea true se hara editar y si no se creara un nuevo producto
 if (isset($editar) && isset($pro) && is_object($pro)):
 ?>
     <h1>Editar producto <?= $pro->nombre ?></h1>

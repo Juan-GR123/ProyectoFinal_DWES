@@ -62,7 +62,7 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) >= 1):
     <br>
     <h3>Precio Total: <?= $mostrar['total'] ?>$</h3>
     <div class="botones-carrito">
-        <a href="<?= base_url ?>pedido/hacer" class="button" id="boton1" > Realizar pedido</a>
+        <a href="<?= base_url ?>pedido/hacer" class="button" id="boton1"> Realizar pedido</a>
         <a href="<?= base_url ?>carrito/delete_toditos" class="button" id="boton2"> Vaciar carrito</a>
     </div>
 <?php else: ?>

@@ -176,7 +176,7 @@ class usuarioController
 
         // Borrar la cookie "user_login"
         if (isset($_COOKIE['user_login'])) {
-            setcookie("user_login", "", time() - 3600, "/"); // Expira en el pasado
+            setcookie("user_login", "", time() - 3600, "/"); // Expira la cookie en el pasado
         }
 
         header("Location: " . base_url);
@@ -250,6 +250,7 @@ class usuarioController
 
     public function update()
     {
+        //compruebo que el usuario esta logueado
         Utils::Sesion_iniciada();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -317,12 +318,6 @@ class usuarioController
                 $usuario->setPassword($password);
             } //si la contraseña no cumple los requerimientos te la guardara pero luego no podrás iniciar sesión
             //no me ha dado tiempo a implementarlo, perdon!!!!
-
-            // if ($usuario->update()) {
-            //     $_SESSION['update'] = 'complete';
-            // } else {
-            //     $_SESSION['update'] = 'failed';
-            // }
 
             // Si la actualización es exitosa
             if ($usuario->update()) {

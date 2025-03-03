@@ -22,7 +22,10 @@ class Usuario
     public function __construct()
     {
         // $this->db = new BaseDatos();
-        // $this->db->conectar_datos();  // Estableces la conexión
+        // $this->db->conectar_datos();  
+
+        // Antes establecia la conexión pero como daba error ahora establezco la conexión al 
+        //principio de cada funcion y la cierro respectivamente
     }
 
     /**
@@ -295,7 +298,7 @@ class Usuario
 
         $this->db->cerrarConexion();
 
-        return $resultado; //devuelve un objeto
+        return $resultado; //devuelve o true o false
     }
 
     public function update()
