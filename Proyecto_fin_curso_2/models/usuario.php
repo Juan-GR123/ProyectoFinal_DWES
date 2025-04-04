@@ -226,7 +226,7 @@ class Usuario
 
         // Verificamos si encontramos un usuario
         if ($stmt->rowCount() == 1) {
-            $usuario = $stmt->fetch(PDO::FETCH_OBJ);
+            $usuario = $stmt->fetch(PDO::FETCH_OBJ); //devuelve un objeto
 
             // Verificar la contraseña
             $verify = password_verify($password, $usuario->password);
